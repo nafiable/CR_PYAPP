@@ -1,5 +1,8 @@
+import logging
 from pydantic import BaseModel
 from datetime import date
+
+logger = logging.getLogger(__name__)
 
 class CompositionPortefeuilleGestionnaire(BaseModel):
     """

@@ -1,11 +1,14 @@
 # sqlserverOperation/soustypeactif1_operations.py
 
 from sqlalchemy.engine import Connection
+import logging
 
 from sqlalchemy import text
 from schemas.SousTypeActif1 import SousTypeActif1 as SousTypeActif1Schema
 from typing import Dict, Any
 
+# Initialize logger
+logger = logging.getLogger(__name__)
 # Définir le nom de la table pour plus de clarté
 TABLE_NAME = "SousTypeActif1"
 
@@ -31,9 +34,11 @@ def create_soustypeactif1(connection: Connection, soustypeactif1_data: SousTypeA
     except Exception as e:
         connection.rollback()
         return {"status": "error", "message": f"Erreur lors de la création de SousTypeActif1: {e}"}
+        logger.error(f"Error creating SousTypeActif1: {e}")
+        return {"status": "error", "message": f"Error creating SousTypeActif1: {e}"}
 
 def get_soustypeactif1_by_id(connection: Connection, soustypeactif1_id: int) -> Dict[str, Any]:
-    """
+     """
     Récupère un enregistrement de la table SousTypeActif1 par son ID.
 
     Args:    connection: L'objet connexion SQLAlchemy.
@@ -50,6 +55,7 @@ def get_soustypeactif1_by_id(connection: Connection, soustypeactif1_id: int) -> 
             return dict(result)
         return None
     except Exception as e:
+        logger.error(f"Error retrieving SousTypeActif1 by ID {soustypeactif1_id}: {e}")
         return {"status": "error", "message": f"Erreur lors de la récupération de SousTypeActif1: {e}"}
 
 def update_soustypeactif1(connection: Connection, soustypeactif1_id: int, soustypeactif1_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -84,6 +90,7 @@ def update_soustypeactif1(connection: Connection, soustypeactif1_id: int, sousty
         else:
             return {"status": "info", "message": f"Aucun SousTypeActif1 trouvé avec l'ID {soustypeactif1_id} pour la mise à jour"}
     except Exception as e:
+        logger.error(f"Error updating SousTypeActif1 with ID {soustypeactif1_id}: {e}")
         connection.rollback()
         return {"status": "error", "message": f"Erreur lors de la mise à jour de SousTypeActif1: {e}"}
 
@@ -107,5 +114,6 @@ def delete_soustypeactif1(connection: Connection, soustypeactif1_id: int) -> Dic
         else:
             return {"status": "info", "message": f"Aucun SousTypeActif1 trouvé avec l'ID {soustypeactif1_id} pour la suppression"}
     except Exception as e:
+        logger.error(f"Error deleting SousTypeActif1 with ID {soustypeactif1_id}: {e}")
         connection.rollback()
         return {"status": "error", "message": f"Erreur lors de la suppression de SousTypeActif1: {e}"}

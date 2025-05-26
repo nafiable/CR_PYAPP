@@ -1,6 +1,7 @@
 from datetime import date
 from typing import Dict, Any, List
 from sqlalchemy.orm import Session
+import logging
 from sqlalchemy import select, update, delete, insert
 from schemas.CompositionIndice import CompositionIndice as CompositionIndiceSchema # Importer le modèle Pydantic
 from sqlalchemy import Table, MetaData, Column, Integer, String, Float, Date
@@ -17,6 +18,9 @@ composition_indice_table = Table('CompositionIndice', metadata,
     Column('valeur_marchande', Float),
     Column('dividende', Float)
 )
+
+# Configure logging
+logger = logging.getLogger(__name__)
 
 def create_composition(connection: Any, composition_data: Dict[str, Any]) -> int | None:
     """
@@ -43,7 +47,7 @@ def create_composition(connection: Any, composition_data: Dict[str, Any]) -> int
             # Pour SQLite, lastrowid est l'ID de la dernière insertion
             return result.lastrowid
     except Exception as e:
-        print(f"Erreur lors de l'insertion de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de l'insertion de la composition d'indice : {e}", exc_info=True)
         return None
 
 def get_composition(connection: Any, indice_id: int, date_comp: date) -> List[Dict[str, Any]]:
@@ -68,7 +72,7 @@ def get_composition(connection: Any, indice_id: int, date_comp: date) -> List[Di
             # Convertir les RowProxy en dictionnaires
             return [dict(row) for row in result.fetchall()]
     except Exception as e:
-        print(f"Erreur lors de la récupération de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de la récupération de la composition d'indice : {e}", exc_info=True)
         return []
 
 def update_composition(connection: Any, indice_id: int, date_comp: date, composition_data: Dict[str, Any]) -> int:
@@ -104,7 +108,7 @@ def update_composition(connection: Any, indice_id: int, date_comp: date, composi
             conn.commit()
             return result.rowcount
     except Exception as e:
-        print(f"Erreur lors de la mise à jour de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de la mise à jour de la composition d'indice : {e}", exc_info=True)
         return 0
 
 def delete_composition(connection: Any, indice_id: int, date_comp: date) -> int:
@@ -129,5 +133,5 @@ def delete_composition(connection: Any, indice_id: int, date_comp: date) -> int:
             conn.commit()
             return result.rowcount
     except Exception as e:
-        print(f"Erreur lors de la suppression de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de la suppression de la composition d'indice : {e}", exc_info=True)
         return 0

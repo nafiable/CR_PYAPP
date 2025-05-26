@@ -4,6 +4,9 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import Table, MetaData, exc
 from sqlalchemy.sql import select, insert, update, delete
+import logging
+
+logger = logging.getLogger(__name__)
 # Base = declarative_base()
 
 # Obtenir les métadonnées pour accéder aux tables
@@ -46,7 +49,7 @@ def create_devise(connection, devise_data):
             # ou vous devriez exécuter une requête pour récupérer l'ID
             return 1 # Placeholder, implémentation réelle nécessaire pour récupérer l'ID
     except Exception as e:
-        print(f"Erreur lors de la création de la devise : {e}")
+        logger.error(f"Erreur lors de la création de la devise : {e}")
         return None
 
 def get_devise_by_id(connection, devise_id):
@@ -75,7 +78,7 @@ def get_devise_by_id(connection, devise_id):
             else:
                 return None
     except Exception as e:
-        print(f"Erreur lors de la récupération de la devise par ID : {e}")
+        logger.error(f"Erreur lors de la récupération de la devise par ID : {e}")
         return None
 
 def update_devise(connection, devise_id, devise_data):
@@ -106,7 +109,7 @@ def update_devise(connection, devise_id, devise_data):
             # Vérifier si au moins une ligne a été affectée
             return result.rowcount > 0
     except Exception as e:
-        print(f"Erreur lors de la mise à jour de la devise : {e}")
+        logger.error(f"Erreur lors de la mise à jour de la devise : {e}")
         return False
 
 def delete_devise(connection, devise_id):
@@ -136,5 +139,5 @@ def delete_devise(connection, devise_id):
             # Vérifier si au moins une ligne a été affectée
             return result.rowcount > 0
     except Exception as e:
-        print(f"Erreur lors de la suppression de la devise : {e}")
+        logger.error(f"Erreur lors de la suppression de la devise : {e}")
         return False

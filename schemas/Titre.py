@@ -1,6 +1,9 @@
 # Fichier : schemas/Titre.py
 
 from pydantic import BaseModel
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Titre(BaseModel):
     """

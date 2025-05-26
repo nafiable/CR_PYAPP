@@ -1,6 +1,7 @@
 # Fichier : sqliteOperation/pays_operations.py
 
 from sqlalchemy import create_engine, MetaData, Table, insert, select, update, delete
+import logging
 from sqlalchemy.orm import sessionmaker
 from sqliteOperation.connexionsqlLiter import SQLiteConnection
 from schemas.Pays import Pays
@@ -11,11 +12,13 @@ from schemas.Pays import Pays
 #       Pour simplifier l'exemple ici, nous récupérons les métadonnées via une connexion temporaire.
 try:
     temp_connection = SQLiteConnection()
+    logger = logging.getLogger(__name__)
     temp_engine = temp_connection.get_engine()
     metadata = MetaData()
     metadata.reflect(bind=temp_engine)
     pays_table = metadata.tables.get('Pays')
     temp_connection.close_connection()
+    logger.info("Métadonnées pour la table 'Pays' chargées avec succès.")
 except Exception as e:
     print(f"Erreur lors de la réflexion des métadonnées pour la table Pays: {e}")
     pays_table = None
@@ -32,7 +35,7 @@ def create_pays(connection: SQLiteConnection, pays_data: dict):
     """
     if pays_table is None:
         print("La table 'Pays' n'a pas pu être chargée. Impossible de créer le pays.")
-        return None
+        logger.error("La table 'Pays' n'a pas pu être chargée. Impossible de créer le pays.")
 
     engine = connection.get_engine()
     Session = sessionmaker(bind=engine)
@@ -46,11 +49,13 @@ def create_pays(connection: SQLiteConnection, pays_data: dict):
         stmt = insert(pays_table).values(pays_data)
         result = session.execute(stmt)
         session.commit()
+        logger.info(f"Pays créé avec succès. ID: {result.lastrowid}")
         # Retourne l'ID de la ligne insérée (peut varier selon le driver et la configuration)
         return result.lastrowid
     except Exception as e:
         session.rollback()
         print(f"Erreur lors de la création du pays: {e}")
+        logger.error(f"Erreur lors de la création du pays: {e}", exc_info=True)
         return None
     finally:
         session.close()
@@ -69,7 +74,7 @@ def get_pays_by_id(connection: SQLiteConnection, pays_id: int):
     """
     if pays_table is None:
         print("La table 'Pays' n'a pas pu être chargée. Impossible de récupérer le pays.")
-        return None
+        logger.error("La table 'Pays' n'a pas pu être chargée. Impossible de récupérer le pays.")
 
     engine = connection.get_engine()
     Session = sessionmaker(bind=engine)
@@ -79,10 +84,13 @@ def get_pays_by_id(connection: SQLiteConnection, pays_id: int):
         stmt = select(pays_table).where(pays_table.c.id == pays_id)
         result = session.execute(stmt).fetchone()
         if result:
+            logger.info(f"Pays avec ID {pays_id} trouvé.")
             # Convertir le résultat en dictionnaire
             return dict(result)
+        logger.info(f"Aucun pays trouvé avec l'ID {pays_id}.")
         return None
     except Exception as e:
+        logger.error(f"Erreur lors de la récupération du pays avec ID {pays_id}: {e}", exc_info=True)
         print(f"Erreur lors de la récupération du pays avec ID {pays_id}: {e}")
         return None
     finally:
@@ -103,7 +111,7 @@ def update_pays(connection: SQLiteConnection, pays_id: int, pays_data: dict):
     """
     if pays_table is None:
         print("La table 'Pays' n'a pas pu être chargée. Impossible de mettre à jour le pays.")
-        return False
+        logger.error("La table 'Pays' n'a pas pu être chargée. Impossible de mettre à jour le pays.")
 
     engine = connection.get_engine()
     Session = sessionmaker(bind=engine)
@@ -116,9 +124,11 @@ def update_pays(connection: SQLiteConnection, pays_id: int, pays_data: dict):
 
         stmt = update(pays_table).where(pays_table.c.id == pays_id).values(pays_data)
         result = session.execute(stmt)
-        session.commit()
+        session.commit() # Commit the transaction
+        logger.info(f"Mise à jour du pays avec ID {pays_id} effectuée. Lignes modifiées: {result.rowcount}")
         return result.rowcount > 0  # Retourne True si au moins une ligne a été modifiée
     except Exception as e:
+        logger.error(f"Erreur lors de la mise à jour du pays avec ID {pays_id}: {e}", exc_info=True)
         session.rollback()
         print(f"Erreur lors de la mise à jour du pays avec ID {pays_id}: {e}")
         return False
@@ -139,7 +149,7 @@ def delete_pays(connection: SQLiteConnection, pays_id: int):
     """
     if pays_table is None:
         print("La table 'Pays' n'a pas pu être chargée. Impossible de supprimer le pays.")
-        return False
+        logger.error("La table 'Pays' n'a pas pu être chargée. Impossible de supprimer le pays.")
 
     engine = connection.get_engine()
     Session = sessionmaker(bind=engine)
@@ -149,9 +159,11 @@ def delete_pays(connection: SQLiteConnection, pays_id: int):
         stmt = delete(pays_table).where(pays_table.c.id == pays_id)
         result = session.execute(stmt)
         session.commit()
+        logger.info(f"Suppression du pays avec ID {pays_id} effectuée. Lignes supprimées: {result.rowcount}")
         return result.rowcount > 0  # Retourne True si au moins une ligne a été supprimée
     except Exception as e:
         session.rollback()
+        logger.error(f"Erreur lors de la suppression du pays avec ID {pays_id}: {e}", exc_info=True)
         print(f"Erreur lors de la suppression du pays avec ID {pays_id}: {e}")
         return False
     finally:

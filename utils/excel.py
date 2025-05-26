@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
 import openpyxl
 from openpyxl.utils import get_column_letter
 
@@ -24,10 +27,10 @@ class ExcelUtils:
             df = pd.read_excel(filepath, sheet_name=sheet_name)
             return df
         except FileNotFoundError:
-            print(f"Erreur : Le fichier Excel '{filepath}' est introuvable.")
+            logger.error(f"Erreur : Le fichier Excel '{filepath}' est introuvable.")
             return None
         except Exception as e:
-            print(f"Erreur lors du chargement du fichier Excel '{filepath}': {e}")
+            logger.error(f"Erreur lors du chargement du fichier Excel '{filepath}': {e}")
             return None
 
     def write_dataframe_to_excel(self, dataframe, filepath, sheet_name='Sheet1', startrow=None, startcol=None):
@@ -50,7 +53,7 @@ class ExcelUtils:
              with pd.ExcelWriter(filepath, engine='openpyxl') as writer:
                  dataframe.to_excel(writer, sheet_name=sheet_name, index=False, startrow=startrow, startcol=startcol)
         except Exception as e:
-            print(f"Erreur lors de l'écriture du DataFrame dans le fichier Excel '{filepath}': {e}")
+            logger.error(f"Erreur lors de l'écriture du DataFrame dans le fichier Excel '{filepath}': {e}")
 
     def write_to_excel_cell(self, filepath, sheet_name, row, col, value):
         """
@@ -71,9 +74,9 @@ class ExcelUtils:
             sheet.cell(row=row, column=col, value=value)
             workbook.save(filepath)
         except FileNotFoundError:
-            print(f"Erreur : Le fichier Excel '{filepath}' est introuvable.")
+            logger.error(f"Erreur : Le fichier Excel '{filepath}' est introuvable.")
         except Exception as e:
-            print(f"Erreur lors de l'écriture dans la cellule ({row}, {col}) de la feuille '{sheet_name}': {e}")
+            logger.error(f"Erreur lors de l'écriture dans la cellule ({row}, {col}) de la feuille '{sheet_name}': {e}")
 
     # NOTE: Les fonctions clear_excel_sheet et clear_excel_range nécessitent une implémentation plus complexe
     # impliquant la suppression du contenu des cellules. Cela sera ajouté ultérieurement si nécessaire.

@@ -3,6 +3,7 @@
 import os
 import pandas as pd
 from STFP.sftp import SFTPClient
+import logging
 from utils import csv, excel # Assuming these modules exist with required functions
 from utils import data
 from database.connexionsqlServer import SQLServerConnection
@@ -10,9 +11,9 @@ from database.connexionsqlLiter import SQLiteConnection
 from constantes import const1
 import logging
 # Configuration du logger
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Configuration du logger
 async def import_data_from_sftp(remote_filepath: str, local_filepath: str, target_table_name: str):
     """
     Importe un fichier depuis un serveur SFTP vers un chemin local.
@@ -55,10 +56,10 @@ async def import_data_from_sftp(remote_filepath: str, local_filepath: str, targe
         # 1. Obtenir la connexion à la base de données appropriée
         db_connection = None
         try:
-            if const1.ENV_TYPE == "prod":
+            if const1.ENV_TYPE == "prod": # Assuming "dev" or any other value means SQLite
  logger.info("Using SQL Server connection for database operations.")
  db_connection = SQLServerConnection()
- else: # Assuming "dev" or any other value means SQLite
+ else:
  logger.info("Using SQLite connection for database operations.")
  db_connection = SQLiteConnection()
 

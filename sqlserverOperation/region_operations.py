@@ -1,7 +1,10 @@
 # sqlserverOperation/region_operations.py
 
+# sqlserverOperation/region_operations.py
+
 from sqlalchemy import text, insert, select, update, delete
 from sqlalchemy.exc import SQLAlchemyError
+import logging
 
 def create_region(connection, region_data: dict):
     """
@@ -20,10 +23,12 @@ def create_region(connection, region_data: dict):
             with conn.begin(): # Débute la transaction
                 conn.execute(query)
             # conn.commit() # Le commit est automatique à la sortie du bloc begin si aucune exception n'est levée
-        # Retourne True ou l'ID inséré si nécessaire
+        # Retourne True ou l'ID inséré si nécessairelogger = logging.getLogger(__name__)
+
         return True # Adapter si vous avez besoin de l'ID inséré
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la création de la région : {e}") # Log l'erreur
+        logger.error(f"Erreur lors de la création de la région : {e}") # Log l'erreur
+
         raise # Relève l'exception pour traitement ultérieur (par ex. par le dispatcher)
     print(f"Région créée : {region_data.get('code')}") # Exemple simple, adapter selon les besoins de log
 
@@ -44,7 +49,8 @@ def get_region_by_id(connection, region_id: int):
         with connection.connect() as conn:
             result = conn.execute(query, {"region_id": region_id}).fetchone()
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la récupération de la région ID {region_id}: {e}") # Log l'erreur
+        logger.error(f"Erreur lors de la récupération de la région ID {region_id}: {e}") # Log l'erreur
+
         raise # Relève l'exception
 
     if result: # Vérifie si un résultat a été trouvé
@@ -70,8 +76,11 @@ def update_region(connection, region_id: int, region_data: dict):
             # conn.commit()
         # Retourne le nombre de lignes modifiées ou True si succès
         return result.rowcount > 0 # Indique si au moins une ligne a été mise à jour
+        logger.info(f"Région ID {region_id} mise à jour.") # Exemple simple
+
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la mise à jour de la région ID {region_id}: {e}") # Log l'erreur
+        logger.error(f"Erreur lors de la mise à jour de la région ID {region_id}: {e}") # Log l'erreur
+
         raise # Relève l'exception
     print(f"Région ID {region_id} mise à jour.") # Exemple simple
 
@@ -93,7 +102,10 @@ def delete_region(connection, region_id: int):
             # conn.commit()
         # Retourne le nombre de lignes supprimées ou True si succès
         return result.rowcount > 0 # Indique si au moins une ligne a été supprimée
+        logger.info(f"Région ID {region_id} supprimée.") # Exemple simple
+
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la suppression de la région ID {region_id}: {e}") # Log l'erreur
+        logger.error(f"Erreur lors de la suppression de la région ID {region_id}: {e}") # Log l'erreur
+
         raise # Relève l'exception
     print(f"Région ID {region_id} supprimée.") # Exemple simple

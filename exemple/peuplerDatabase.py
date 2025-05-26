@@ -4,6 +4,9 @@ representing portfolio data for testing purposes.
 """
 
 import pandas as pd
+import logging
+
+logger = logging.getLogger(__name__)
 
 def generate_sample_portfolio_data():
     """
@@ -29,9 +32,10 @@ def generate_sample_portfolio_data():
         'Manager': ['Manager X', 'Manager Y', 'Manager X', 'Manager Z', 'Manager Y', 'Manager Z', 'Manager X', 'Manager Y', 'Manager Z', 'Manager X']
     }
     df = pd.DataFrame(data)
+    logger.info("Generated sample portfolio DataFrame.")
     return df
 
 if __name__ == '__main__':
     # Example usage:
     sample_df = generate_sample_portfolio_data()
-    print(sample_df)
+    logger.info("Sample DataFrame:\n%s", sample_df)

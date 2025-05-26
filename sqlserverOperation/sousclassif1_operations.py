@@ -1,7 +1,10 @@
 # Fichier : sqlserverOperation/sousclassif1_operations.py
 
+import logging
 from sqlalchemy import Column, Integer, String, MetaData, Table, insert, select, update, delete
 from sqlalchemy.orm import sessionmaker
+
+logger = logging.getLogger(__name__)
 
 # Metadonnées pour les tables
 metadata = MetaData()
@@ -34,7 +37,7 @@ def create_sousclassif1(connection, sousclassif1_data):
         with conn.begin():
             insert_statement = sousclassif1_table.insert().values(sousclassif1_data)
             result = conn.execute(insert_statement)
-            print(f"SousClassif1 créée avec l'ID : {result.lastrowid}")
+            logger.info(f"SousClassif1 créée avec l'ID : {result.lastrowid}")
 
 def get_sousclassif1_by_id(connection, sousclassif1_id):
     """

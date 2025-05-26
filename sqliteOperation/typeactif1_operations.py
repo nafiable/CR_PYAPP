@@ -1,6 +1,9 @@
 # Fichier : sqliteOperation/typeactif1_operations.py
 
 from sqlalchemy import text
+import logging
+
+logger = logging.getLogger(__name__)
 
 class TypeActif1OperationsSQLite:
     """
@@ -28,10 +31,10 @@ class TypeActif1OperationsSQLite:
                 conn.commit()
                 # Pour SQLite, on peut récupérer l'ID inséré de cette manière
                 inserted_id = result.lastrowid
-                print(f"TypeActif1 créé avec l'ID : {inserted_id}")
+                logger.info(f"TypeActif1 créé avec l'ID : {inserted_id}")
                 return inserted_id
         except Exception as e:
-            print(f"Erreur lors de la création du TypeActif1 : {e}")
+            logger.error(f"Erreur lors de la création du TypeActif1 : {e}")
             raise
 
     def get_typeactif1_by_id(self, connection, typeactif1_id: int):
@@ -57,7 +60,7 @@ class TypeActif1OperationsSQLite:
                     return dict(row)
                 return None
         except Exception as e:
-            print(f"Erreur lors de la récupération du TypeActif1 (ID: {typeactif1_id}) : {e}")
+            logger.error(f"Erreur lors de la récupération du TypeActif1 (ID: {typeactif1_id}) : {e}")
             raise
 
     def update_typeactif1(self, connection, typeactif1_id: int, typeactif1_data: dict):
@@ -81,10 +84,10 @@ class TypeActif1OperationsSQLite:
                     id=typeactif1_id
                 )
                 conn.commit()
-                print(f"TypeActif1 (ID: {typeactif1_id}) mis à jour.")
+                logger.info(f"TypeActif1 (ID: {typeactif1_id}) mis à jour.")
                 return result.rowcount > 0
         except Exception as e:
-            print(f"Erreur lors de la mise à jour du TypeActif1 (ID: {typeactif1_id}) : {e}")
+            logger.error(f"Erreur lors de la mise à jour du TypeActif1 (ID: {typeactif1_id}) : {e}")
             raise
 
     def delete_typeactif1(self, connection, typeactif1_id: int):
@@ -105,8 +108,8 @@ class TypeActif1OperationsSQLite:
                     id=typeactif1_id
                 )
                 conn.commit()
-                print(f"TypeActif1 (ID: {typeactif1_id}) supprimé.")
+                logger.info(f"TypeActif1 (ID: {typeactif1_id}) supprimé.")
                 return result.rowcount > 0
         except Exception as e:
-            print(f"Erreur lors de la suppression du TypeActif1 (ID: {typeactif1_id}) : {e}")
+            logger.error(f"Erreur lors de la suppression du TypeActif1 (ID: {typeactif1_id}) : {e}")
             raise

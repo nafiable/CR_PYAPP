@@ -2,6 +2,9 @@ from sqlalchemy import create_engine, MetaData, Table, insert, select, update, d
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.engine import Connection
 from typing import Dict, Any, Optional, List
+import logging
+
+logger = logging.getLogger(__name__)
 
 metadata = MetaData()
 
@@ -27,13 +30,13 @@ def create_indice(connection: Connection, indice_data: Dict[str, Any]):
         result = connection.execute(stmt)
         # Si la colonne ID est auto-incrémentée, on peut récupérer l'ID inséré ainsi:
         # inserted_id = result.lastrowid
-        # print(f"Indice créé avec ID: {inserted_id}")
-        print(f"Indice créé.")
+        # logger.info(f"Indice créé avec ID: {inserted_id}")
+        logger.info("Indice créé.")
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la création de l'indice : {e}")
+        logger.error(f"Erreur lors de la création de l'indice : {e}")
         # La gestion des transactions dépend de comment la connexion est gérée en amont.
         # Si 'connection' est un objet Session, commit/rollback serait approprié ici.
-        # Si c'est un Engine, les opérations sont auto-committées par défaut ou gérées via un 'with engine.connect() as conn:' bloc.
+        # Si c'est un Engine, les opérations sont auto-committées par défaut ou gérées via un 'with engine.connect() as conn:' bloc. # noqa: E501
 
 def get_indice_by_id(connection: Connection, indice_id: int) -> Optional[Dict[str, Any]]:
     """
@@ -54,7 +57,7 @@ def get_indice_by_id(connection: Connection, indice_id: int) -> Optional[Dict[st
             return dict(row._mapping)
         return None
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la récupération de l'indice (ID: {indice_id}) : {e}")
+        logger.error(f"Erreur lors de la récupération de l'indice (ID: {indice_id}) : {e}")
         return None
 
 def update_indice(connection: Connection, indice_id: int, indice_data: Dict[str, Any]):
@@ -71,12 +74,12 @@ def update_indice(connection: Connection, indice_id: int, indice_data: Dict[str,
         stmt = update(indice_table).where(indice_table.c.id == indice_id).values(indice_data)
         result = connection.execute(stmt)
         if result.rowcount > 0:
-            print(f"Indice (ID: {indice_id}) mis à jour.")
+            logger.info(f"Indice (ID: {indice_id}) mis à jour.")
         else:
-            print(f"Aucun indice trouvé avec l'ID {indice_id} pour la mise à jour.")
+            logger.warning(f"Aucun indice trouvé avec l'ID {indice_id} pour la mise à jour.")
     except sqlite3.Error as e:
-        print(f"Erreur lors de la mise à jour de l'indice (ID: {indice_id}) : {e}")
-        connection.rollback()
+        logger.error(f"Erreur lors de la mise à jour de l'indice (ID: {indice_id}) : {e}")
+        # La gestion des transactions dépend de comment la connexion est gérée en amont. # noqa: E501
 
 def delete_indice(connection: Connection, indice_id: int):
     """
@@ -90,9 +93,8 @@ def delete_indice(connection: Connection, indice_id: int):
         stmt = delete(indice_table).where(indice_table.c.id == indice_id)
         result = connection.execute(stmt)
         if result.rowcount > 0:
-            print(f"Indice (ID: {indice_id}) supprimé.")
+            logger.info(f"Indice (ID: {indice_id}) supprimé.")
         else:
-            print(f"Aucun indice trouvé avec l'ID {indice_id} pour la suppression.")
+            logger.warning(f"Aucun indice trouvé avec l'ID {indice_id} pour la suppression.")
     except sqlite3.Error as e:
-        print(f"Erreur lors de la suppression de l'indice (ID: {indice_id}) : {e}")
-        connection.rollback()
+        logger.error(f"Erreur lors de la suppression de l'indice (ID: {indice_id}) : {e}")

@@ -5,6 +5,9 @@
 """
 
 from sqlalchemy.orm import Session
+import logging
+
+logger = logging.getLogger(__name__)
 from sqlalchemy import text
 from schemas.SousTypeActif1 import SousTypeActif1Create, SousTypeActif1Update
 
@@ -32,7 +35,7 @@ def create_soustypeactif1(connection: Session, soustypeactif1_data: SousTypeActi
         return soustypeactif1_data.dict()
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la création du SousTypeActif1 : {e}")
+        logger.error(f"Erreur lors de la création du SousTypeActif1 : {e}", exc_info=True)
         return None
 
 def get_soustypeactif1_by_id(connection: Session, soustypeactif1_id: int):
@@ -57,7 +60,7 @@ def get_soustypeactif1_by_id(connection: Session, soustypeactif1_id: int):
             return dict(result)
         return None
     except Exception as e:
-        print(f"Erreur lors de la récupération du SousTypeActif1 : {e}")
+        logger.error(f"Erreur lors de la récupération du SousTypeActif1 : {e}", exc_info=True)
         return None # Retourner None si une erreur se produit
 
 def update_soustypeactif1(connection: Session, soustypeactif1_id: int, soustypeactif1_data: SousTypeActif1Update):
@@ -94,7 +97,7 @@ def update_soustypeactif1(connection: Session, soustypeactif1_id: int, soustypea
         return None # Aucun SousTypeActif1 trouvé avec cet ID
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la mise à jour du SousTypeActif1 : {e}")
+        logger.error(f"Erreur lors de la mise à jour du SousTypeActif1 : {e}", exc_info=True)
         return None
 
 def delete_soustypeactif1(connection: Session, soustypeactif1_id: int):
@@ -118,5 +121,5 @@ def delete_soustypeactif1(connection: Session, soustypeactif1_id: int):
         return result.rowcount > 0
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la suppression du SousTypeActif1 : {e}")
+        logger.error(f"Erreur lors de la suppression du SousTypeActif1 : {e}", exc_info=True)
         return False

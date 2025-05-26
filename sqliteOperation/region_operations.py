@@ -2,6 +2,9 @@
 
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+import logging
+
+logger = logging.getLogger(__name__)
 from sqlalchemy.exc import SQLAlchemyError
 # from schemas.Region import Region
 
@@ -34,8 +37,9 @@ def create_region(connection, region_data: dict):
             # inserted_id = result.lastrowid
             return {"status": "success", "message": "Région créée", "data": region_data}
         except Exception as e:
+ logger.error(f"Erreur lors de la création de la région : {e}", exc_info=True)
             conn.rollback()
-            return {"status": "error", "message": f"Erreur lors de la création de la région : {e}"}
+ return {"status": "error", "message": f"Erreur lors de la création de la région."}
 
 def get_region_by_id(connection, region_id: int):
     """
@@ -60,7 +64,7 @@ def get_region_by_id(connection, region_id: int):
                 return None
         except Exception as e:
             # En lecture, pas besoin de rollback, mais on peut logger l'erreur
-            print(f"Erreur lors de la récupération de la région par ID : {e}")
+ logger.error(f"Erreur lors de la récupération de la région par ID {region_id}: {e}", exc_info=True)
             return None
 
 def update_region(connection, region_id: int, region_data: dict):
@@ -89,8 +93,10 @@ def update_region(connection, region_id: int, region_data: dict):
             update_params = {**region_data, "region_id": region_id}
             result = conn.execute(stmt, update_params)
             if result.rowcount > 0:
+ logger.info(f"Région avec ID {region_id} mise à jour.")
  return {"status": "success", "message": f"Région avec ID {region_id} mise à jour."}
             else:
+ logger.warning(f"Région avec ID {region_id} non trouvée ou aucune modification.")
  return {"status": "warning", "message": f"Région avec ID {region_id} non trouvée ou aucune modification."}
         except Exception as e:
             conn.rollback()
@@ -113,8 +119,10 @@ def delete_region(connection, region_id: int):
             stmt = text(f"DELETE FROM {REGION_TABLE_NAME} WHERE id = :region_id;")
             result = conn.execute(stmt, {"region_id": region_id})
             if result.rowcount > 0:
+ logger.info(f"Région avec ID {region_id} supprimée.")
  return {"status": "success", "message": f"Région avec ID {region_id} supprimée."}
             else:
+ logger.warning(f"Région avec ID {region_id} non trouvée.")
  return {"status": "warning", "message": f"Région avec ID {region_id} non trouvée."}
         except SQLAlchemyError as e:
             conn.rollback()

@@ -1,13 +1,18 @@
 # sqlserverOperation/indice_operations.py
 
+# sqlserverOperation/indice_operations.py
+
 from sqlalchemy.orm import Session
 from sqlalchemy import text, insert, select, update, delete
+import logging
 
 # Assurez-vous que votre objet de connexion ou votre session SQLAlchemy est passé ici
 # Exemple: from database.connexionsqlServer import SQLServerConnection
 
 # Vous pourriez définir ici une représentation de la table 'Indice' si vous utilisez SQLAlchemy Core de manière plus structurée
 def create_indice(connection: Session, indice_data: dict):
+    """
+logger = logging.getLogger(__name__)
     """
     Insère un nouvel indice dans la base de données SQL Server.
 
@@ -22,13 +27,15 @@ def create_indice(connection: Session, indice_data: dict):
         # Exemple d'insertion basique avec SQLAlchemy Core ou ORM
         query = insert(text("Indice")).values(indice_data)
         connection.execute(query, indice_data)
+        connection.commit()
+        logger.info(f"Indice créé avec succès : {indice_data.get('nom')}")
  conn.commit()
         # Pour des besoins simples, on peut retourner les données insérées
         return indice_data
 
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la création de l'indice : {e}")
+        logger.error(f"Erreur lors de la création de l'indice : {e}")
         return None
 
 def get_indice_by_id(connection: Session, indice_id: int):
@@ -50,7 +57,7 @@ def get_indice_by_id(connection: Session, indice_id: int):
             return dict(result._mapping)
         return None
     except Exception as e:
-        print(f"Erreur lors de la récupération de l'indice par ID : {e}")
+        logger.error(f"Erreur lors de la récupération de l'indice par ID {indice_id}: {e}")
         return None
 
 def update_indice(connection: Session, indice_id: int, indice_data: dict):
@@ -70,15 +77,17 @@ def update_indice(connection: Session, indice_id: int, indice_data: dict):
         # Assurez-vous que indice_data ne contient pas l'ID pour la clause SET
         update_values = {k: v for k, v in indice_data.items() if k != 'id'}
         if not update_values:
-            print("Aucune donnée à mettre à jour.")
+ logger.warning(f"Aucune donnée de mise à jour fournie pour l'indice ID {indice_id}.")
             return False
 
         parameters = {"id": indice_id, **update_values}
 
  query = update(text("Indice")).where(text("id = :id")).values(update_values)
         result = connection.execute(query, parameters)
+        if result.rowcount > 0:
+ logger.info(f"Indice ID {indice_id} mis à jour avec succès.")
         connection.commit()
-        return result.rowcount > 0 # Retourne True si au moins une ligne a été affectée
+        return result.rowcount > 0
     except Exception as e:
         connection.rollback()
         print(f"Erreur lors de la mise à jour de l'indice : {e}")
@@ -99,8 +108,10 @@ def delete_indice(connection: Session, indice_id: int):
         # Exemple de suppression basique
  query = delete(text("Indice")).where(text("id = :id"))
         result = connection.execute(query, {"id": indice_id})
+        if result.rowcount > 0:
+ logger.info(f"Indice ID {indice_id} supprimé avec succès.")
         connection.commit()
-        return result.rowcount > 0 # Retourne True si au moins une ligne a été supprimée
+        return result.rowcount > 0
     except Exception as e:
         connection.rollback()
         print(f"Erreur lors de la suppression de l'indice : {e}")

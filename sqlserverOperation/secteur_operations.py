@@ -2,6 +2,7 @@
 
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+import logging
 from sqlalchemy.exc import SQLAlchemyError
 # Assurez-vous d'avoir un modèle SQLAlchemy ou utilisez des requêtes brutes.
 # Pour cet exemple, nous allons utiliser des requêtes brutes via la connexion brute ou l'engine.
@@ -9,6 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError
 # Supposons que 'connection' est un objet SQLAlchemy Engine ou une Session
 # Assurez-vous que la table 'Secteur' existe dans votre base de données SQL Server.
 
+logger = logging.getLogger(__name__)
 def create_secteur(connection, secteur_data: dict):
     """
     Insère un nouveau secteur dans la base de données SQL Server.
@@ -44,7 +46,7 @@ def create_secteur(connection, secteur_data: dict):
                     return secteur_id
     except SQLAlchemyError as e:
         print(f"Erreur lors de la création du secteur : {e}")
-        return None
+        logger.error(f"Erreur lors de la création du secteur : {e}")
 
 def get_secteur_by_id(connection, secteur_id: int):
     """
@@ -74,7 +76,7 @@ def get_secteur_by_id(connection, secteur_id: int):
             return dict(result._mapping)
         return None
     except Exception as e:
-        print(f"Erreur lors de la récupération du secteur (ID: {secteur_id}): {e}")
+        logger.error(f"Erreur lors de la récupération du secteur (ID: {secteur_id}): {e}")
         return None
 
 def update_secteur(connection, secteur_id: int, secteur_data: dict):
@@ -107,7 +109,7 @@ def update_secteur(connection, secteur_id: int, secteur_data: dict):
                     return result.rowcount > 0
     except SQLAlchemyError as e:
         print(f"Erreur lors de la mise à jour du secteur : {e}")
-        return False
+        logger.error(f"Erreur lors de la mise à jour du secteur : {e}")
 
 def delete_secteur(connection, secteur_id: int):
     """

@@ -1,5 +1,8 @@
 # logic/fund_calculations.py
 
+import logging
+
+logger = logging.getLogger(__name__)
 import pandas as pd
 
 def calculate_market_value(fund_id: int, date: str, connection) -> float:
@@ -14,7 +17,7 @@ def calculate_market_value(fund_id: int, date: str, connection) -> float:
     Returns:
         La valeur marchande calculée du fonds.
     """
-    print(f"Calcul de la valeur marchande pour le fonds {fund_id} à la date {date}")
+    logger.info(f"Calcul de la valeur marchande pour le fonds {fund_id} à la date {date}")
 
     # TODO: Implémenter la logique de calcul réelle.
     # Cela impliquerait typiquement de:

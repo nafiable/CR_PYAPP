@@ -1,9 +1,12 @@
 # sqlserverOperation/classif1_operations.py
 
+# sqlserverOperation/classif1_operations.py
+
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 # Supposons que vous avez un modèle SQLAlchemy ou que vous utilisez directement les noms de tables
 # from schemas.Classif1 import Classif1 as Classif1Schema # Exemple si vous avez des modèles SQLAlchemy
+import logging
 
 def create_classif1(connection: Session, classif1_data: dict):
     """
@@ -24,7 +27,7 @@ def create_classif1(connection: Session, classif1_data: dict):
 
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la création de la Classif1 : {e}")
+        logging.error(f"Erreur lors de la création de la Classif1 : {e}")
         raise
 
 def get_classif1_by_id(connection: Session, classif1_id: int):
@@ -49,7 +52,7 @@ def get_classif1_by_id(connection: Session, classif1_id: int):
         return None
 
     except Exception as e:
-        print(f"Erreur lors de la récupération de la Classif1 : {e}")
+        logging.error(f"Erreur lors de la récupération de la Classif1 : {e}")
         raise
 
 def update_classif1(connection: Session, classif1_id: int, classif1_data: dict):
@@ -77,7 +80,7 @@ def update_classif1(connection: Session, classif1_id: int, classif1_data: dict):
 
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la mise à jour de la Classif1 : {e}")
+        logging.error(f"Erreur lors de la mise à jour de la Classif1 : {e}")
         raise
 
 def delete_classif1(connection: Session, classif1_id: int):
@@ -101,5 +104,5 @@ def delete_classif1(connection: Session, classif1_id: int):
 
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la suppression de la Classif1 : {e}")
+        logging.error(f"Erreur lors de la suppression de la Classif1 : {e}")
         raise

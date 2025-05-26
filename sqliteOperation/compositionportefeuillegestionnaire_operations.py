@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from sqlalchemy import text
 from datetime import date
 from typing import List, Dict
+
+logger = logging.getLogger(__name__)
 
 class CompositionPortefeuilleGestionnaireOperations:
     """
@@ -36,7 +39,7 @@ class CompositionPortefeuilleGestionnaireOperations:
                 conn.commit()
                 return result.rowcount
         except Exception as e:
-            print(f"Erreur lors de la création de la composition de portefeuille : {e}")
+            logger.error(f"Erreur lors de la création de la composition de portefeuille : {e}", exc_info=True)
             raise
 
     def get_composition(self, connection, fonds_id: int, gestionnaire_id: int, date: date) -> List[Dict]:
@@ -64,7 +67,7 @@ class CompositionPortefeuilleGestionnaireOperations:
                 return [row._asdict() for row in result.fetchall()]
         except Exception as e:
             print(f"Erreur lors de la récupération de la composition de portefeuille : {e}")
-            raise
+            logger.error(f"Erreur lors de la récupération de la composition de portefeuille : {e}", exc_info=True)
 
     def update_composition(self, connection, fonds_id: int, gestionnaire_id: int, date: date, composition_data: Dict):
         """
@@ -96,7 +99,7 @@ class CompositionPortefeuilleGestionnaireOperations:
                 conn.commit()
                 return result.rowcount
         except Exception as e:
-            print(f"Erreur lors de la mise à jour de la composition de portefeuille : {e}")
+            logger.error(f"Erreur lors de la mise à jour de la composition de portefeuille : {e}", exc_info=True)
             raise
 
     def delete_composition(self, connection, fonds_id: int, gestionnaire_id: int, date: date):
@@ -124,5 +127,5 @@ class CompositionPortefeuilleGestionnaireOperations:
                 conn.commit()
                 return result.rowcount
         except Exception as e:
-            print(f"Erreur lors de la suppression de la composition de portefeuille : {e}")
+            logger.error(f"Erreur lors de la suppression de la composition de portefeuille : {e}", exc_info=True)
             raise

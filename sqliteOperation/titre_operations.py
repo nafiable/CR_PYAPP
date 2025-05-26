@@ -1,5 +1,6 @@
 # Fichier : sqliteOperation/titre_operations.py
 
+import logging
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, Float, text, update, delete, select
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import SQLAlchemyError
@@ -10,6 +11,8 @@ from schemas.Titre import Titre  # Assurez-vous que le modèle Titre est correct
 # Pour cet exemple, nous allons simuler les opérations sans mapper explicitement
 # les classes aux tables ici. L'objet 'connection' passé aux fonctions
 # est supposé être un objet engine ou session SQLAlchemy.
+
+logger = logging.getLogger(__name__)
 
 def create_titre(connection, titre_data: Titre):
     """
@@ -33,7 +36,7 @@ def create_titre(connection, titre_data: Titre):
         # En cas de succès simulé
         return True
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la création du titre : {e}")
+        logger.error(f"Erreur lors de la création du titre : {e}")
         # Si vous utilisiez des sessions, il faudrait rollback en cas d'erreur
         # session.rollback()
         return False
@@ -61,7 +64,7 @@ def get_titre_by_id(connection, titre_id: int):
         else:
             return None
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la récupération du titre : {e}")
+        logger.error(f"Erreur lors de la récupération du titre : {e}")
         return None
 
 def update_titre(connection, titre_id: int, titre_data: Titre):
@@ -88,7 +91,7 @@ def update_titre(connection, titre_id: int, titre_data: Titre):
         connection.execute(query, {**titre_data.model_dump(), "id": titre_id})
         return True
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la mise à jour du titre : {e}")
+        logger.error(f"Erreur lors de la mise à jour du titre : {e}")
         # Si vous utilisiez des sessions, il faudrait rollback en cas d'erreur
         # session.rollback()
         return False
@@ -111,7 +114,7 @@ def delete_titre(connection, titre_id: int):
         connection.execute(query, {"titre_id": titre_id})
         return True
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la suppression du titre : {e}")
+        logger.error(f"Erreur lors de la suppression du titre : {e}")
         # Si vous utilisiez des sessions, il faudrait rollback en cas d'erreur
         # session.rollback()
         return False

@@ -1,5 +1,7 @@
 # Fichier: sqliteOperation/devise_operations.py
 
+import logging
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -7,6 +9,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 # Définir le modèle de table pour SQLAlchemy (peut être remplacé par l'importation des schémas Pydantic si l'on utilise une approche ORM complète)
 Base = declarative_base()
+
+logger = logging.getLogger(__name__)
 
 class Devise(Base):
     """
@@ -55,7 +59,7 @@ def create_devise(connection, devise_data: dict):
         session.close()
         return {"id": nouvelle_devise.id, "code": nouvelle_devise.code, "nom": nouvelle_devise.nom, "idPays": nouvelle_devise.idPays}
     except Exception as e:
-        print(f"Erreur lors de la création de la devise : {e}")
+        logger.error(f"Erreur lors de la création de la devise : {e}")
         return None
 
 def get_devise_by_id(connection, devise_id: int):
@@ -75,10 +79,12 @@ def get_devise_by_id(connection, devise_id: int):
         devise = session.query(Devise).filter_by(id=devise_id).first()
         session.close()
         if devise:
+            logger.info(f"Devise trouvée avec l'ID {devise_id}")
             return {"id": devise.id, "code": devise.code, "nom": devise.nom, "idPays": devise.idPays}
+        logger.info(f"Aucune devise trouvée avec l'ID {devise_id}")
         return None
     except Exception as e:
-        print(f"Erreur lors de la récupération de la devise : {e}")
+        logger.error(f"Erreur lors de la récupération de la devise avec l'ID {devise_id} : {e}")
         return None
 
 def update_devise(connection, devise_id: int, devise_data: dict):
@@ -97,10 +103,12 @@ def update_devise(connection, devise_id: int, devise_data: dict):
     try:
         session = Session()
         devise = session.query(Devise).filter_by(id=devise_id).first()
+        logger.info(f"Tentative de mise à jour de la devise avec l'ID {devise_id}")
         if devise:
             # Mettre à jour les champs de la devise avec les données fournies
             for key, value in devise_data.items():
                 # Vérifier si l'attribut existe sur le modèle avant de le définir
+                logger.debug(f"Mise à jour du champ {key} avec la valeur {value} pour la devise {devise_id}")
                 if hasattr(devise, key):
                 setattr(devise, key, value)
 
@@ -108,10 +116,12 @@ def update_devise(connection, devise_id: int, devise_data: dict):
             session.commit()
             session.close()
             return True
+        logger.warning(f"Aucune devise trouvée avec l'ID {devise_id} pour la mise à jour.")
         session.close() # Fermer la session même si aucune devise n'est trouvée
         return False
     except Exception as e:
-        print(f"Erreur lors de la mise à jour de la devise : {e}")
+        session.rollback() # Annuler la transaction en cas d'erreur
+        logger.error(f"Erreur lors de la mise à jour de la devise avec l'ID {devise_id} : {e}")
         return False
 
 def delete_devise(connection, devise_id: int):
@@ -129,15 +139,19 @@ def delete_devise(connection, devise_id: int):
     try:
         session = Session()
         devise = session.query(Devise).filter_by(id=devise_id).first()
+        logger.info(f"Tentative de suppression de la devise avec l'ID {devise_id}")
         if devise:
             # Supprimer la devise trouvée
             session.delete(devise)
             # Utiliser une transaction
             session.commit()
             session.close()
+            logger.info(f"Devise avec l'ID {devise_id} supprimée avec succès.")
             return True
+        logger.warning(f"Aucune devise trouvée avec l'ID {devise_id} pour la suppression.")
         session.close() # Fermer la session même si aucune devise n'est trouvée
         return False
     except Exception as e:
-        print(f"Erreur lors de la suppression de la devise : {e}")
+        session.rollback() # Annuler la transaction en cas d'erreur
+        logger.error(f"Erreur lors de la suppression de la devise avec l'ID {devise_id} : {e}")
         return False

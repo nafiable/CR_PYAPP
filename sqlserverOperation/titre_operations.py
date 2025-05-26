@@ -1,7 +1,10 @@
 # sqlserverOperation/titre_operations.py
 
+import logging
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+
+logger = logging.getLogger(__name__)
 
 # Import du modèle Pydantic pour la validation (si utilisé)
 # from schemas.Titre import Titre
@@ -38,7 +41,7 @@ def create_titre(connection: Session, titre_data: Dict[str, Any]) -> bool:
         # Pour l'instant, nous retournons un indicateur de succès.
         return result.rowcount == 1 # S'assurer qu'une ligne a été insérée
     except Exception as e:
-        print(f"Erreur lors de la création du titre : {e}")
+        logger.error(f"Erreur lors de la création du titre : {e}", exc_info=True)
         return None
 
 def get_titre_by_id(connection: Session, titre_id: int):
@@ -60,7 +63,7 @@ def get_titre_by_id(connection: Session, titre_id: int):
             return dict(result)
         return None
     except Exception as e:
-        print(f"Erreur lors de la récupération du titre (ID: {titre_id}) : {e}")
+        logger.error(f"Erreur lors de la récupération du titre (ID: {titre_id}) : {e}", exc_info=True)
         return None
 
 def update_titre(connection: Session, titre_id: int, titre_data: Dict[str, Any]) -> bool:
@@ -89,7 +92,7 @@ def update_titre(connection: Session, titre_id: int, titre_data: Dict[str, Any])
         # Retourne True si au moins une ligne a été affectée (mise à jour réussie)
         return result.rowcount > 0
     except Exception as e:
-        print(f"Erreur lors de la mise à jour du titre (ID: {titre_id}) : {e}")
+        logger.error(f"Erreur lors de la mise à jour du titre (ID: {titre_id}) : {e}", exc_info=True)
         return None # Indiquer un échec
 
 def delete_titre(connection: Session, titre_id: int):
@@ -109,5 +112,5 @@ def delete_titre(connection: Session, titre_id: int):
         # Retourne True si au moins une ligne a été affectée (suppression réussie)
         return result.rowcount > 0 # Utiliser > 0 car un DELETE peut affecter 0 lignes si l'ID n'existe pas
     except Exception as e:
-        print(f"Erreur lors de la suppression du titre (ID: {titre_id}) : {e}")
+        logger.error(f"Erreur lors de la suppression du titre (ID: {titre_id}) : {e}", exc_info=True)
         return False

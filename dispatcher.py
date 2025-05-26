@@ -1,5 +1,6 @@
 # dispatcher.py
 
+import logging
 import json
 from constantes import const1
 from database.connexionsqlServer import SQLServerConnection
@@ -7,6 +8,7 @@ from database.connexionsqlLiter import SQLiteConnection
 from logic import fund_calculations, data_import_logic
 
 
+logger = logging.getLogger(__name__)
 async def dispatch_request(function_name: str, payload: dict):
     """
     Distribue les requêtes entrantes vers les fonctions appropriées.
@@ -22,8 +24,8 @@ async def dispatch_request(function_name: str, payload: dict):
     if not hasattr(const1, 'ENV_TYPE'):
         const1.load_config()
 
-    print(f"Requête reçue pour la fonction : {function_name}")
-    print(f"Charge utile : {json.dumps(payload, indent=2)}")
+    logger.info(f"Requête reçue pour la fonction : {function_name}")
+    logger.debug(f"Charge utile : {json.dumps(payload, indent=2)}")
 
     # Logique de dispatching à ajouter ici
     if const1.ENV_TYPE == 'development':
@@ -63,7 +65,9 @@ async def dispatch_request(function_name: str, payload: dict):
             response = {"status": "success", "message": "Importation SFTP initiée."}
         else:
             response = {"status": "error", "message": f"Fonction non trouvée: {function_name}"}
+            logger.warning(f"Fonction non trouvée: {function_name}")
     except Exception as e:
         response = {"status": "error", "message": f"Une erreur est survenue lors de l'exécution de la fonction {function_name}: {str(e)}"}
+        logger.error(f"Erreur lors de l'exécution de la fonction {function_name}: {str(e)}", exc_info=True)
 
     return response

@@ -1,9 +1,12 @@
 # sqliteOperation/compositionfondsgestionnaire_operations.py
 
+import logging
 from sqlalchemy import create_engine, Column, Integer, String, Float, Date
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.exc import SQLAlchemyError
 from schemas.CompositionFondsGestionnaire import CompositionFondsGestionnaire
+
+logger = logging.getLogger(__name__)
 
 # Remarque : Pour un véritable ORM, on définirait ici les classes modèles SQLAlchemy.
 # Pour l'instant, nous utiliserons des requêtes brutes ou des outils simples.
@@ -51,8 +54,8 @@ def create_composition(connection, composition_data: CompositionFondsGestionnair
  session.execute(stmt)
  session.commit()
         return True
-    except SQLAlchemyError as e:
-        print(f"Erreur lors de la création de la composition: {e}")
+    except SQLAlchemyError as ex:
+        logger.error(f"Erreur SQLAlchemy lors de la création de la composition: {ex}")
         # Gérer l'erreur (logging, etc.)
         return False
 
@@ -88,7 +91,7 @@ def get_composition(connection, fonds_id: int, gestionnaire_id: int, date: str):
  compositions = [dict(row._mapping) for row in result] if result else []
             return compositions
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la récupération de la composition: {e}")
+        logger.error(f"Erreur SQLAlchemy lors de la récupération de la composition: {e}")
         # Gérer l'erreur (logging, etc.)
         return None
 
@@ -123,8 +126,8 @@ def update_composition(connection, fonds_id: int, gestionnaire_id: int, date: st
                 result = conn.execute(stmt)
  # conn.commit() # Commit géré par le `with conn.begin()`
             return result.rowcount > 0  # Retourne True si au moins une ligne a été affectée
-    except SQLAlchemyError as e:
-        print(f"Erreur lors de la mise à jour de la composition: {e}")
+    except SQLAlchemyError as ex:
+        logger.error(f"Erreur SQLAlchemy lors de la mise à jour de la composition: {ex}")
         # Gérer l'erreur (logging, etc.)
         return False
 
@@ -157,6 +160,6 @@ def delete_composition(connection, fonds_id: int, gestionnaire_id: int, date: st
  result = conn.execute(stmt)
             return result.rowcount > 0  # Retourne True si au moins une ligne a été affectée
     except SQLAlchemyError as e:
-        print(f"Erreur lors de la suppression de la composition: {e}")
+        logger.error(f"Erreur SQLAlchemy lors de la suppression de la composition: {e}")
         # Gérer l'erreur (logging, etc.)
         return False

@@ -2,7 +2,10 @@
 # Description : Ce fichier contient les fonctionnalités pour gérer les opérations SFTP.
 
 import paramiko
+import logging
 from constantes.const1 import load_config, SFTP_HOSTNAME, SFTP_PORT, SFTP_USERNAME, SFTP_PASSWORD
+
+logger = logging.getLogger(__name__)
 
 class SFTPClient:
     """
@@ -33,11 +36,11 @@ class SFTPClient:
             self.sftp = paramiko.SFTPClient.from_transport(self.transport)
             print(f"Connexion SFTP établie à {SFTP_HOSTNAME}:{SFTP_PORT}")
         except paramiko.AuthenticationException:
-            print("Échec de l'authentification SFTP.")
+            logger.error("Échec de l'authentification SFTP.")
         except paramiko.SSHException as e:
-            print(f"Erreur de connexion SSH : {e}")
+            logger.error(f"Erreur de connexion SSH : {e}")
         except Exception as e:
-            print(f"Erreur inattendue lors de la connexion SFTP : {e}")
+            logger.error(f"Erreur inattendue lors de la connexion SFTP : {e}")
 
     def list_files(self, remote_path):
         """
@@ -53,13 +56,13 @@ class SFTPClient:
             try:
                 return self.sftp.listdir(remote_path)
             except FileNotFoundError:
-                print(f"Le répertoire distant '{remote_path}' n'existe pas.")
+                logger.warning(f"Le répertoire distant '{remote_path}' n'existe pas.")
                 return None
             except Exception as e:
-                print(f"Erreur lors du listage des fichiers SFTP : {e}")
+                logger.error(f"Erreur lors du listage des fichiers SFTP : {e}")
                 return None
         else:
-            print("Aucune connexion SFTP établie.")
+            logger.warning("Aucune connexion SFTP établie.")
             return None
 
     def download_file(self, remote_path, local_path):
@@ -77,9 +80,9 @@ class SFTPClient:
             except FileNotFoundError:
                 print(f"Le fichier distant '{remote_path}' n'a pas été trouvé.")
             except Exception as e:
-                print(f"Erreur lors du téléchargement du fichier SFTP : {e}")
+                logger.error(f"Erreur lors du téléchargement du fichier SFTP : {e}")
         else:
-            print("Aucune connexion SFTP établie.")
+            logger.warning("Aucune connexion SFTP établie.")
 
     def disconnect(self):
         """

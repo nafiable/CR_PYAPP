@@ -1,12 +1,16 @@
 # sqlserverOperation/compositionfondsgestionnaire_operations.py
 
 from sqlalchemy import text
+import logging
+
 from datetime import date
 # Supposons que votre modèle CompositionFondsGestionnaire est importable
 # from schemas.CompositionFondsGestionnaire import CompositionFondsGestionnaire
 
 # Dépendance hypothetique pour la connexion, à remplacer par votre implementation
 # from database.connexionsqlServer import SQLServerConnection
+
+logger = logging.getLogger(__name__)
 
 
 def create_composition(connection, composition_data: dict):
@@ -27,9 +31,9 @@ def create_composition(connection, composition_data: dict):
         with connection.connect() as conn:
             conn.execute(query, composition_data)
             conn.commit()
-        print("Composition créée avec succès.")
+        logger.info("Composition créée avec succès.")
     except Exception as e:
-        print(f"Erreur lors de la création de la composition : {e}")
+        logger.error(f"Erreur lors de la création de la composition : {e}")
         raise
 
 
@@ -60,7 +64,7 @@ def get_composition(connection, fonds_id: int, gestionnaire_id: int, date_compos
             else:
                 return None
     except Exception as e:
-        print(f"Erreur lors de la récupération de la composition : {e}")
+        logger.error(f"Erreur lors de la récupération de la composition : {e}")
         raise
 
 
@@ -88,12 +92,12 @@ def update_composition(connection, fonds_id: int, gestionnaire_id: int, date_com
             result = conn.execute(query, params)
             conn.commit()
             if result.rowcount == 0:
-                print("Aucune composition trouvée pour la mise à jour.")
+                logger.warning("Aucune composition trouvée pour la mise à jour.")
             else:
-                print(f"{result.rowcount} composition(s) mise(s) à jour.")
+                logger.info(f"{result.rowcount} composition(s) mise(s) à jour.")
     except Exception as e:
-        print(f"Erreur lors de la mise à jour de la composition : {e}")
-        raise
+        logger.error(f"Erreur lors de la mise à jour de la composition : {e}")
+        raise # Relève l'exception pour traitement ultérieur
 
 
 def delete_composition(connection, fonds_id: int, gestionnaire_id: int, date_composition: date):
@@ -114,10 +118,10 @@ def delete_composition(connection, fonds_id: int, gestionnaire_id: int, date_com
         with connection.connect() as conn:
             result = conn.execute(query, {"fonds_id": fonds_id, "gestionnaire_id": gestionnaire_id, "date_composition": date_composition})
             conn.commit()
-            if result.rowcount == 0:
-                print("Aucune composition trouvée pour la suppression.")
+            if result.rowcount > 0:
+                logger.info(f"{result.rowcount} composition(s) supprimée(s).")
             else:
-                print(f"{result.rowcount} composition(s) supprimée(s).")
+                logger.warning("Aucune composition trouvée pour la suppression.")
     except Exception as e:
-        print(f"Erreur lors de la suppression de la composition : {e}")
+        logger.error(f"Erreur lors de la suppression de la composition : {e}")
         raise

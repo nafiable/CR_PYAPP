@@ -1,7 +1,10 @@
 # sqliteOperation/secteur_operations.py
 
+# sqliteOperation/secteur_operations.py
+
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
+import logging
 from sqlalchemy import text
 
 # Assurez-vous d'avoir un modèle Sector correspondant si vous utilisez l'ORM
@@ -18,6 +21,8 @@ def create_secteur(connection: Session, secteur_data: dict):
     Returns:
         L'ID du secteur créé.
     """
+    logger = logging.getLogger(__name__)
+    logger.info(f"Attempting to create secteur with data: {secteur_data}")
  # Utiliser un bloc 'with' pour la transaction
  with connection.begin():
     try:
@@ -25,11 +30,12 @@ def create_secteur(connection: Session, secteur_data: dict):
         query = text("INSERT INTO Secteur (codeGics, codeBics, nom) VALUES (:codeGics, :codeBics, :nom)")
         result = connection.execute(query, secteur_data)
         # Pour SQLite, on peut récupérer l'ID inséré comme ceci
+        logger.info(f"Secteur created successfully with ID: {result.lastrowid}")
  # SQLAlchemy utilise .lastrowid pour les moteurs qui le supportent, y compris SQLite
  return result.lastrowid
  # Gérer les erreurs spécifiques si possible
  except IntegrityError as e:
- print(f"Erreur d'intégrité lors de la création du secteur : {e}")
+ logger.error(f"Integrity error during secteur creation: {e}", exc_info=True)
  # Lever l'exception pour signaler l'échec au niveau supérieur
  raise
  except SQLAlchemyError as e:
@@ -48,6 +54,7 @@ def get_secteur_by_id(connection: Session, secteur_id: int):
     Returns:
         Un dictionnaire représentant le secteur ou None si non trouvé.
     """
+    logger = logging.getLogger(__name__)
     try:
         query = text("SELECT id, codeGics, codeBics, nom FROM Secteur WHERE id = :id")
         result = connection.execute(query, {"id": secteur_id}).fetchone()
@@ -55,7 +62,7 @@ def get_secteur_by_id(connection: Session, secteur_id: int):
             # Convertir le résultat en dictionnaire
             return dict(result)
         return None
- except SQLAlchemyError as e:
+    except SQLAlchemyError as e:
  # Pas besoin de rollback pour une lecture simple
  print(f"Erreur lors de la récupération du secteur (ID: {secteur_id}): {e}")
  # Lever l'exception pour signaler l'échec au niveau supérieur
@@ -74,6 +81,7 @@ def update_secteur(connection: Session, secteur_id: int, secteur_data: dict):
     Returns:
         True si la mise à jour a réussi, False sinon.
     """
+    logger = logging.getLogger(__name__)
  # Utiliser un bloc 'with' pour la transaction
  with connection.begin():
     try:
@@ -82,14 +90,15 @@ def update_secteur(connection: Session, secteur_id: int, secteur_data: dict):
         query = text(f"UPDATE Secteur SET {set_clauses} WHERE id = :id")
         params = {"id": secteur_id, **secteur_data}
         result = connection.execute(query, params)
+        logger.info(f"Attempted to update secteur ID {secteur_id}. Rows affected: {result.rowcount}")
  # Gérer les erreurs spécifiques si possible
  except IntegrityError as e:
- print(f"Erreur d'intégrité lors de la mise à jour du secteur (ID: {secteur_id}): {e}")
+ logger.error(f"Integrity error during secteur update (ID: {secteur_id}): {e}", exc_info=True)
         raise
         return result.rowcount > 0
     except Exception as e:
  connection.rollback()
-        print(f"Erreur lors de la mise à jour du secteur (ID: {secteur_id}): {e}")
+ logger.error(f"Error during secteur update (ID: {secteur_id}): {e}", exc_info=True)
         return False
 
 def delete_secteur(connection: Session, secteur_id: int):

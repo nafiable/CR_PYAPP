@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text, exc
 from schemas.TypeActif1 import TypeActif1  # Assurez-vous que l'importation est correcte
+import logging
+
+logger = logging.getLogger(__name__)
 
 def create_typeactif1(connection: Session, typeactif1_data: TypeActif1):
     """
@@ -26,16 +29,16 @@ def create_typeactif1(connection: Session, typeactif1_data: TypeActif1):
             # Exécuter la requête avec les paramètres
             connection.execute(query, data_to_insert)
             # La transaction est automatiquement commitée si aucune exception n'est levée
-        print(f"TypeActif1 créé avec succès: ID {typeactif1_data.id}")
+        logger.info(f"TypeActif1 créé avec succès: ID {typeactif1_data.id}")
         return True
     except exc.IntegrityError as e:
         # Gérer les erreurs d'intégrité (ex: clé primaire dupliquée)
-        print(f"Erreur d'intégrité lors de la création du TypeActif1 : {e}")
+        logger.error(f"Erreur d'intégrité lors de la création du TypeActif1 : {e}")
         # La transaction est automatiquement rollbackée en cas d'exception dans le bloc 'with'
         return False
     except Exception as e: # Gérer les autres exceptions potentielles
-        print(f"Erreur lors de la création du TypeActif1 : {e}")
-        return False
+        logger.error(f"Erreur lors de la création du TypeActif1 : {e}")
+        return False # Il pourrait être utile de logger le stack trace ici en mode debug
 
 def get_typeactif1_by_id(connection: Session, typeactif1_id: int):
     """
@@ -60,7 +63,7 @@ def get_typeactif1_by_id(connection: Session, typeactif1_id: int):
         else:
             return None # Aucune région trouvée avec cet ID
     except Exception as e: # Gérer les autres exceptions potentielles
-        print(f"Erreur lors de la récupération du TypeActif1 : {e}")
+        logger.error(f"Erreur lors de la récupération du TypeActif1 : {e}")
         return None
 
 def update_typeactif1(connection: Session, typeactif1_id: int, typeactif1_data: dict):
@@ -77,11 +80,11 @@ def update_typeactif1(connection: Session, typeactif1_id: int, typeactif1_data: 
         True si la mise à jour est réussie, False sinon.
     """
     if not typeactif1_data:
-        print("Aucune donnée de mise à jour fournie pour TypeActif1.")
+        logger.warning("Aucune donnée de mise à jour fournie pour TypeActif1.")
         return False
 
     try:
-        with connection.begin(): # Démarre une transaction
+        with connection.begin(): # Démarre une transaction (SQL Server gère cela aussi avec le bon driver)
             # Construire la partie SET de la requête SQL dynamiquement
             set_clauses = ', '.join([f"{key} = :{key}" for key in typeactif1_data.keys()])
 
@@ -98,13 +101,13 @@ def update_typeactif1(connection: Session, typeactif1_id: int, typeactif1_data: 
             result = connection.execute(query, params)
             # La transaction est automatiquement commitée
         if result.rowcount > 0:
-            print(f"TypeActif1 avec ID {typeactif1_id} mis à jour avec succès.")
+            logger.info(f"TypeActif1 avec ID {typeactif1_id} mis à jour avec succès.")
             return True
         else:
-            print(f"Aucun TypeActif1 trouvé avec l'ID {typeactif1_id} pour mise à jour.")
+            logger.warning(f"Aucun TypeActif1 trouvé avec l'ID {typeactif1_id} pour mise à jour.")
             return False
     except Exception as e: # Gérer les autres exceptions potentielles
-        print(f"Erreur lors de la mise à jour du TypeActif1 avec ID {typeactif1_id}: {e}")
+        logger.error(f"Erreur lors de la mise à jour du TypeActif1 avec ID {typeactif1_id}: {e}")
         return False
 
 def delete_typeactif1(connection: Session, typeactif1_id: int):
@@ -124,12 +127,13 @@ def delete_typeactif1(connection: Session, typeactif1_id: int):
             query = text("DELETE FROM TypeActif1 WHERE id = :typeactif1_id")
             result = connection.execute(query, {"typeactif1_id": typeactif1_id})
             # La transaction est automatiquement commitée
+        # sqlalchemy retourne rowcount même pour le delete
         if result.rowcount > 0:
-            print(f"TypeActif1 avec ID {typeactif1_id} supprimé avec succès.")
+            logger.info(f"TypeActif1 avec ID {typeactif1_id} supprimé avec succès.")
             return True
         else:
-            print(f"Aucun TypeActif1 trouvé avec l'ID {typeactif1_id} pour suppression.")
+            logger.warning(f"Aucun TypeActif1 trouvé avec l'ID {typeactif1_id} pour suppression.")
             return False
     except Exception as e: # Gérer les autres exceptions potentielles
-        print(f"Erreur lors de la suppression du TypeActif1 avec ID {typeactif1_id}: {e}")
+        logger.error(f"Erreur lors de la suppression du TypeActif1 avec ID {typeactif1_id}: {e}")
         return False

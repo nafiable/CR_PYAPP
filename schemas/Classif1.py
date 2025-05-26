@@ -1,3 +1,6 @@
+import logging
+
+logger = logging.getLogger(__name__)
 from pydantic import BaseModel
 
 class Classif1(BaseModel):

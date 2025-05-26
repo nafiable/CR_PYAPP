@@ -4,6 +4,9 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import Dict, Any, List
 
+import logging
+
+logger = logging.getLogger(__name__)
 # Import du modèle si l'ORM est utilisé pour certaines opérations ou validations
 # Dépendance vers les schémas si nécessaire, par exemple :
 # from schemas.CompositionIndice import CompositionIndice
@@ -25,10 +28,10 @@ def create_composition(connection: Session, composition_data: Dict[str, Any]):
         """)
         connection.execute(query, composition_data)
         connection.commit()
-        print("Composition d'indice insérée avec succès.")
+        logger.info("Composition d'indice insérée avec succès.")
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de l'insertion de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de l'insertion de la composition d'indice : {e}")
         raise
 
 def get_composition(connection: Session, indice_id: int, date: str):
@@ -53,7 +56,7 @@ def get_composition(connection: Session, indice_id: int, date: str):
         # Convertir les lignes SQLAlchemy en liste de dictionnaires
         return [dict(row._mapping) for row in result]
  except Exception as e:
-        print(f"Erreur lors de la récupération de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de la récupération de la composition d'indice : {e}")
         return []
 
 def update_composition(connection: Session, indice_id: int, date: str, composition_data: Dict[str, Any]):
@@ -79,12 +82,12 @@ def update_composition(connection: Session, indice_id: int, date: str, compositi
         result = connection.execute(query, params)
         connection.commit()
         if result.rowcount > 0:
-            print("Composition d'indice mise à jour avec succès.")
+            logger.info("Composition d'indice mise à jour avec succès.")
         else:
-            print("Aucune composition d'indice trouvée pour la mise à jour.")
+            logger.warning("Aucune composition d'indice trouvée pour la mise à jour.")
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la mise à jour de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de la mise à jour de la composition d'indice : {e}")
         raise
 
 def delete_composition(connection: Session, indice_id: int, date: str):
@@ -104,10 +107,10 @@ def delete_composition(connection: Session, indice_id: int, date: str):
         result = connection.execute(query, {'indice_id': indice_id, 'date': date})
         connection.commit()
         if result.rowcount > 0:
-            print("Composition d'indice supprimée avec succès.")
+            logger.info("Composition d'indice supprimée avec succès.")
         else:
-            print("Aucune composition d'indice trouvée pour la suppression.")
+            logger.warning("Aucune composition d'indice trouvée pour la suppression.")
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la suppression de la composition d'indice : {e}")
+        logger.error(f"Erreur lors de la suppression de la composition d'indice : {e}")
         raise

@@ -5,7 +5,7 @@ from sqlalchemy import text
 import logging
 
 # Configuration du logging (à affiner selon les besoins)
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def insert_test_data(connection: SQLiteConnection, id: int, nom: str):
     """
@@ -31,12 +31,12 @@ def insert_test_data(connection: SQLiteConnection, id: int, nom: str):
             # Committer la transaction
             conn.commit()
             
-            logging.info(f"Données insérées dans TestTable (SQLite): ID={id}, Nom={nom}")
+            logger.info(f"Données insérées dans TestTable (SQLite): ID={id}, Nom={nom}")
             
     except Exception as e:
-        logging.error(f"Erreur lors de l'insertion dans TestTable (SQLite): {e}")
+        logger.error(f"Erreur lors de l'insertion dans TestTable (SQLite): {e}")
         # Gérer l'erreur (lever une exception, retourner False, etc.)
-        raise
+        raise # Relève l'exception pour traitement ultérieur (par ex. par le dispatcher)
 
 if __name__ == '__main__':
     # Exemple d'utilisation (pour les tests locaux)
@@ -53,9 +53,9 @@ if __name__ == '__main__':
         insert_test_data(sqlite_connection, 1, "Test SQLite 1")
         insert_test_data(sqlite_connection, 2, "Test SQLite 2")
         
-    except Exception as e:
-        logging.error(f"Erreur lors de l'exécution de l'exemple : {e}")
+    except Exception as ex:
+        logger.error(f"Erreur lors de l'exécution de l'exemple : {ex}")
         
     finally:
         if sqlite_connection:
-            sqlite_connection.close_connection()
+            sqlite_connection.close_connection() # Ferme la connexion si elle a été ouverte

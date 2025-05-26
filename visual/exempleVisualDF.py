@@ -1,6 +1,9 @@
 import pandas as pd
 from visual import display_dataframe_gui
 from utils.wait_utils import Wait
+import logging
+
+logger = logging.getLogger(__name__)
 
 def main():
     """
@@ -12,15 +15,15 @@ def main():
             'Column C': [True, False, True, False, True]}
     df = pd.DataFrame(data)
 
-    print("Displaying DataFrame in a GUI window...")
+    logger.info("Displaying DataFrame in a GUI window...")
     # Display the dataframe in the GUI
     display_dataframe_gui(df)
 
-    print("Pausing execution for 10 seconds...")
+    logger.info("Pausing execution for 10 seconds...")
     # Pause execution for 10 seconds to view the GUI
     Wait(10)
 
-    print("Execution resumed after 10 seconds.")
+    logger.info("Execution resumed after 10 seconds.")
 
 if __name__ == "__main__":
     main()

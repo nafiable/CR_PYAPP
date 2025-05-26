@@ -1,8 +1,11 @@
+import logging
 import sqlalchemy
 import pyodbc  # ou un autre driver comme pymssql
 import urllib
 
 from constantes.const1 import Constantes, load_config
+
+logger = logging.getLogger(__name__)
 
 class SQLServerConnection:
     """
@@ -24,7 +27,7 @@ class SQLServerConnection:
 
         # Vérifier que les constantes nécessaires sont chargées
         if not all([self.server, self.database, self.user, self.password]):
-            raise ValueError("Les paramètres de connexion SQL Server ne sont pas correctement configurés dans config.env")
+            logger.error("Les paramètres de connexion SQL Server ne sont pas correctement configurés dans config.env")
 
         # Encoder les paramètres de connexion pour l'URL SQLAlchemy
         params = urllib.parse.quote_plus(f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={self.server};DATABASE={self.database};UID={self.user};PWD={self.password}')
@@ -39,8 +42,8 @@ class SQLServerConnection:
  try:
             # Créer l'engine de connexion SQLAlchemy
             self.engine = sqlalchemy.create_engine(f'mssql+pyodbc:///?odbc_connect={params}')
- except Exception as e:
-            print(f"Erreur lors de l'ouverture de la connexion SQL Server : {e}")
+ except Exception as e: # Gérer les exceptions lors de la connexion
+            logger.error(f"Erreur lors de l'ouverture de la connexion SQL Server : {e}", exc_info=True)
 
     def close_connection(self):
         """

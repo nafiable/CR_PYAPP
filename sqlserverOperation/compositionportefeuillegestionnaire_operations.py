@@ -1,5 +1,8 @@
 # sqlserverOperation/compositionportefeuillegestionnaire_operations.py
 
+import logging
+
+logger = logging.getLogger(__name__)
 from sqlalchemy import text
 
 def create_composition(connection, composition_data):
@@ -30,7 +33,7 @@ def create_composition(connection, composition_data):
             conn.commit()
             return True
     except Exception as e:
-        print(f"Erreur lors de la création de la composition de portefeuille par gestionnaire: {e}")
+        logger.error(f"Erreur lors de la création de la composition de portefeuille par gestionnaire: {e}", exc_info=True)
         return False
 
 def get_composition(connection, fonds_id: int, gestionnaire_id: int, date):
@@ -55,7 +58,7 @@ def get_composition(connection, fonds_id: int, gestionnaire_id: int, date):
                 return dict(result._mapping)
             return None
     except Exception as e:
-        print(f"Erreur lors de la récupération de la composition de portefeuille par gestionnaire: {e}")
+        logger.error(f"Erreur lors de la récupération de la composition de portefeuille par gestionnaire: {e}", exc_info=True)
         return None
 
 def update_composition(connection, fonds_id: int, gestionnaire_id: int, date, composition_data):
@@ -93,7 +96,7 @@ def update_composition(connection, fonds_id: int, gestionnaire_id: int, date, co
  # Conn.commit() n'est pas nécessaire ici si l'engine est utilisé dans un bloc 'with'
  return result.rowcount > 0
     except Exception as e:
-        print(f"Erreur lors de la mise à jour de la composition de portefeuille par gestionnaire: {e}")
+        logger.error(f"Erreur lors de la mise à jour de la composition de portefeuille par gestionnaire: {e}", exc_info=True)
         return False
 
 def delete_composition(connection, fonds_id: int, gestionnaire_id: int, date):
@@ -116,7 +119,7 @@ def delete_composition(connection, fonds_id: int, gestionnaire_id: int, date):
             conn.commit()
             return result.rowcount > 0
     except Exception as e:
-        print(f"Erreur lors de la suppression de la composition de portefeuille par gestionnaire: {e}")
+        logger.error(f"Erreur lors de la suppression de la composition de portefeuille par gestionnaire: {e}", exc_info=True)
         return False
 
 # Exemple d'utilisation (pour les tests unitaires ou l'intégration)
@@ -152,35 +155,35 @@ if __name__ == '__main__':
         }
 
         # Créer une nouvelle composition
-        print("Création d'une composition...")
+        logger.info("Création d'une composition...")
         if create_composition(connection, new_composition_data):
-            print("Composition créée avec succès.")
+            logger.info("Composition créée avec succès.")
         else:
-            print("Échec de la création de la composition.")
+            logger.error("Échec de la création de la composition.")
 
         # Récupérer la composition créée
-        print("\nRécupération de la composition...")
+        logger.info("Récupération de la composition...")
         retrieved_composition = get_composition(connection, 1, 1, date.today())
         if retrieved_composition:
-            print("Composition récupérée:", retrieved_composition)
+            logger.info(f"Composition récupérée: {retrieved_composition}")
         else:
-            print("Composition non trouvée.")
+            logger.warning("Composition non trouvée.")
 
         # Mettre à jour la composition
-        print("\nMise à jour de la composition...")
+        logger.info("Mise à jour de la composition...")
         update_data = {"prix": 55.0, "valeur_marchande": 5527.5}
         if update_composition(connection, 1, 1, date.today(), update_data):
-            print("Composition mise à jour avec succès.")
+            logger.info("Composition mise à jour avec succès.")
         else:
-            print("Échec de la mise à jour de la composition.")
+            logger.error("Échec de la mise à jour de la composition.")
 
         # Récupérer la composition mise à jour
-        print("\nRécupération de la composition mise à jour...")
+        logger.info("Récupération de la composition mise à jour...")
         retrieved_composition_updated = get_composition(connection, 1, 1, date.today())
         if retrieved_composition_updated:
-            print("Composition mise à jour récupérée:", retrieved_composition_updated)
+            logger.info(f"Composition mise à jour récupérée: {retrieved_composition_updated}")
         else:
-            print("Composition non trouvée après mise à jour.")
+            logger.warning("Composition non trouvée après mise à jour.")
 
         # Supprimer la composition
         print("\nSuppression de la composition...")
@@ -190,15 +193,16 @@ if __name__ == '__main__':
             print("Échec de la suppression de la composition.")
 
         # Tenter de récupérer la composition supprimée
-        print("\nTentative de récupération de la composition supprimée...")
+        logger.info("Tentative de récupération de la composition supprimée...")
         retrieved_composition_deleted = get_composition(connection, 1, 1, date.today())
         if retrieved_composition_deleted:
-            print("Composition supprimée toujours trouvée (erreur).")
+            logger.error("Composition supprimée toujours trouvée (erreur).")
         else:
-            print("Composition supprimée non trouvée (succès).")
+            logger.info("Composition supprimée non trouvée (succès).")
 
     except Exception as e:
-        print(f"Erreur générale dans l'exemple: {e}")
+        logger.critical(f"Erreur générale dans l'exemple: {e}", exc_info=True)
     finally:
         if db_connection_manager:
-            db_connection_manager.close_connection()
+            logger.info("Fermeture de la connexion à la base de données.")
+            # db_connection_manager.close_connection() # Assurez-vous que cette méthode existe et est appropriée

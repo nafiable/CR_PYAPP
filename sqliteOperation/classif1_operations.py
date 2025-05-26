@@ -5,6 +5,7 @@ Module des opérations CRUD pour la table Classif1 dans la base de données SQLi
 """
 
 from sqlalchemy.orm import Session
+import logging
 from sqlalchemy import text
 from ..schemas.Classif1 import Classif1 as Classif1Schema
 
@@ -12,6 +13,8 @@ from ..schemas.Classif1 import Classif1 as Classif1Schema
 # ou que la fonction de connexion retourne un objet Session SQLAlchemy.
 # Exemple :
 # from ..database.connexionsqlLiter import SQLiteConnection
+
+logger = logging.getLogger(__name__)
 
 def create_classif1(connection: Session, classif1_data: Classif1Schema):
     """
@@ -32,7 +35,7 @@ def create_classif1(connection: Session, classif1_data: Classif1Schema):
         return classif1_data
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la création de Classif1 : {e}")
+        logger.error(f"Erreur lors de la création de Classif1 : {e}")
         raise # Propage l'exception
 
 def get_classif1_by_id(connection: Session, classif1_id: int):
@@ -54,7 +57,7 @@ def get_classif1_by_id(connection: Session, classif1_id: int):
             return {"id": result[0], "nom": result[1]}
         return None
     except Exception as e:
-        print(f"Erreur lors de la récupération de Classif1 par ID : {e}")
+        logger.error(f"Erreur lors de la récupération de Classif1 par ID : {e}")
         raise # Propage l'exception
 
 def update_classif1(connection: Session, classif1_id: int, classif1_data: Classif1Schema):
@@ -78,7 +81,7 @@ def update_classif1(connection: Session, classif1_id: int, classif1_data: Classi
         return None # Aucune ligne mise à jour, Classif1 non trouvée
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la mise à jour de Classif1 : {e}")
+        logger.error(f"Erreur lors de la mise à jour de Classif1 : {e}")
         raise # Propage l'exception
 
 def delete_classif1(connection: Session, classif1_id: int):
@@ -99,5 +102,5 @@ def delete_classif1(connection: Session, classif1_id: int):
         return result.rowcount > 0
     except Exception as e:
         connection.rollback()
-        print(f"Erreur lors de la suppression de Classif1 : {e}")
+        logger.error(f"Erreur lors de la suppression de Classif1 : {e}")
         raise # Propage l'exception

@@ -2,6 +2,9 @@
 
 import gzip
 import zipfile
+import logging
+
+logger = logging.getLogger(__name__)
 import os
 
 class IOUtils:
@@ -21,6 +24,7 @@ class IOUtils:
         Returns:
             str: Contenu du fichier.
         """
+        logger.info(f"Reading text file: {filepath}")
         with open(filepath, 'r', encoding='utf-8') as f:
             return f.read()
 
@@ -33,6 +37,7 @@ class IOUtils:
             filepath (str): Chemin complet du fichier texte.
             content (str): Contenu à écrire dans le fichier.
         """
+        logger.info(f"Writing text file: {filepath}")
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(content)
 
@@ -46,6 +51,7 @@ class IOUtils:
             output_filepath (str): Chemin où enregistrer le fichier compressé (.gz).
         """
         with open(filepath, 'rb') as f_in:
+            logger.info(f"Compressing file: {filepath} to {output_filepath}")
             with gzip.open(output_filepath, 'wb') as f_out:
                 f_out.writelines(f_in)
 
@@ -59,5 +65,6 @@ class IOUtils:
             output_filepath (str): Chemin où enregistrer le fichier décompressé.
         """
         with gzip.open(filepath, 'rb') as f_in:
+            logger.info(f"Decompressing file: {filepath} to {output_filepath}")
             with open(output_filepath, 'wb') as f_out:
                 f_out.writelines(f_in)

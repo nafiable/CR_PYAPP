@@ -2,6 +2,9 @@
 
 import pandas as pd
 from sqlalchemy import text
+import logging
+
+logger = logging.getLogger(__name__)
 
 class DataUtils:
     """
@@ -22,9 +25,9 @@ class DataUtils:
         """
         try:
             dataframe.to_sql(name=tablename, con=connection, if_exists=if_exists, index=False)
-            print(f"DataFrame chargé dans la table '{tablename}' avec succès.")
+            logger.info(f"DataFrame chargé dans la table '{tablename}' avec succès.")
         except Exception as e:
-            print(f"Erreur lors du chargement du DataFrame dans la table '{tablename}': {e}")
+            logger.error(f"Erreur lors du chargement du DataFrame dans la table '{tablename}': {e}")
             raise
 
     @staticmethod
@@ -40,9 +43,9 @@ class DataUtils:
         try:
             df = pd.DataFrame(data)
             DataUtils.load_dataframe_to_sql(df, tablename, connection, if_exists='append') # Utilise 'append' par défaut pour les dictionnaires
-            print(f"Dictionnaires chargés dans la table '{tablename}' avec succès.")
+            logger.info(f"Dictionnaires chargés dans la table '{tablename}' avec succès.")
         except Exception as e:
-            print(f"Erreur lors du chargement des dictionnaires dans la table '{tablename}': {e}")
+            logger.error(f"Erreur lors du chargement des dictionnaires dans la table '{tablename}': {e}")
             raise
 
     @staticmethod
@@ -59,10 +62,10 @@ class DataUtils:
         """
         try:
             df = pd.read_sql(query, con=connection)
-            print("Données chargées depuis la base de données vers un DataFrame avec succès.")
+            logger.info("Données chargées depuis la base de données vers un DataFrame avec succès.")
             return df
         except Exception as e:
-            print(f"Erreur lors du chargement des données SQL vers un DataFrame: {e}")
+            logger.error(f"Erreur lors du chargement des données SQL vers un DataFrame: {e}")
             raise
 
     @staticmethod
@@ -83,8 +86,8 @@ class DataUtils:
                 # Convertir les résultats en liste de dictionnaires
                 # Les noms de colonnes sont dans result.keys()
                 rows_as_dict = [dict(zip(result.keys(), row)) for row in result]
-            print("Données chargées depuis la base de données vers une liste de dictionnaires avec succès.")
+            logger.info("Données chargées depuis la base de données vers une liste de dictionnaires avec succès.")
             return rows_as_dict
         except Exception as e:
-            print(f"Erreur lors du chargement des données SQL vers une liste de dictionnaires: {e}")
+            logger.error(f"Erreur lors du chargement des données SQL vers une liste de dictionnaires: {e}")
             raise

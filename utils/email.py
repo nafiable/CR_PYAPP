@@ -2,10 +2,13 @@ import os
 from O365 import Account, Message, FileSystemTokenBackend
 
 import configparser
+import logging
+
+logger = logging.getLogger(__name__)
 from dotenv import load_dotenv, find_dotenv
 
 def load_env_credentials():
-    Loads Microsoft 365 credentials from environment variables.
+    """Loads Microsoft 365 credentials from environment variables.
     Assumes environment variables are loaded from a .env file.
 
     Returns:
@@ -25,7 +28,7 @@ def read_emails(query=None):
     """
         credentials = load_env_credentials()
         if not credentials or not all(credentials.values()):
-            print("Email credentials (MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID) not found in environment variables.")
+            logger.error("Email credentials (MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID) not found in environment variables.")
             return None
 
         # Use FileSystemTokenBackend to manage tokens (requires initial authentication flow)
@@ -42,10 +45,10 @@ def read_emails(query=None):
 
             # Get messages with optional query
             messages = list(inbox.get_messages(query=query))
-            print(f"Read {len(messages)} emails from inbox.")
+            logger.info(f"Read {len(messages)} emails from inbox.")
             return messages
         else:
-            print("O365 Authentication failed. Please run the authentication flow.")
+            logger.error("O365 Authentication failed. Please run the authentication flow.")
             return None
 
 
@@ -71,7 +74,7 @@ def extract_attachments(email_message, output_dir: str) -> list:
             file_path = os.path.join(output_dir, attachment.name)
             attachment.save(file_path) # Use the save method provided by O365 attachment object
             saved_attachments.append(file_path)
-            # print(f"Extracted attachment: {attachment.name}") # Keep silent unless error
+            logger.info(f"Extracted attachment: {attachment.name}")
     return saved_attachments
 
 def classify_email(email_message):
@@ -117,7 +120,7 @@ def send_email(recipient: str | list, subject: str, body: str) -> bool:
     try:
         credentials = load_env_credentials()
         if not credentials or not all(credentials.values()):
-                print("Email credentials (MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID) not found in environment variables.")
+                logger.error("Email credentials (MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID) not found in environment variables.")
                 return False
 
         token_backend = FileSystemTokenBackend(token_path='.', token_filename='o365_token.json')
@@ -130,10 +133,10 @@ def send_email(recipient: str | list, subject: str, body: str) -> bool:
             m.send()
             return True
         else:
-            print("Authentication failed.")
+            logger.error("Authentication failed.")
             return False
     except Exception as e:
-        print(f"Error sending email: {e}")
+        logger.error(f"Error sending email: {e}")
 
     Returns:
         bool: True if the email was sent successfully, False otherwise.
@@ -142,7 +145,7 @@ def send_email(recipient: str | list, subject: str, body: str) -> bool:
     try:
         credentials = load_env_credentials()
         if not credentials or not all(credentials.values()):
-                print("Email credentials (MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID) not found in environment variables.")
+                logger.error("Email credentials (MS365_CLIENT_ID, MS365_CLIENT_SECRET, MS365_TENANT_ID) not found in environment variables.")
                 return False
 
         token_backend = FileSystemTokenBackend(token_path='.', token_filename='o365_token.json')
@@ -157,14 +160,14 @@ def send_email(recipient: str | list, subject: str, body: str) -> bool:
                 try:
                     m.attachments.add(attachment_path)
                 except FileNotFoundError:
-                    print(f"Attachment file not found: {attachment_path}")
+                    logger.error(f"Attachment file not found: {attachment_path}")
                     # Decide whether to continue or fail here
             m.send()
         # else:
-        #     print("Authentication failed.")
+        #     logger.error("Authentication failed.")
         #     return False
     except Exception as e:
-        print(f"Error sending email with attachments: {e}")
+        logger.error(f"Error sending email with attachments: {e}")
         return False
 
 # Note: To use the O365 library, you need to perform an initial authentication
@@ -186,26 +189,26 @@ if __name__ == '__main__':
     # Example usage (requires O365 setup and a valid token in o365_token.json):
 
     print("Email utility functions defined. Implementation details and authentication setup are required.")
+    logger.info("Email utility functions defined. Implementation details and authentication setup are required.")
     # Read emails example:
-    # print("Attempting to read emails...")
+    # logger.info("Attempting to read emails...")
     # emails = read_emails() # Reads all emails
     # if emails:
-    #     print(f"Read {len(emails)} emails.")
+    #     logger.info(f"Read {len(emails)} emails.")
     #     for email in emails:
     #         classification = classify_email(email)
-    #         print(f"Email subject: {email.subject}, Classification: {classification}")
+    #         logger.info(f"Email subject: {email.subject}, Classification: {classification}")
     #         # Example of extracting attachments from the first email
     #         # extract_attachments(email, 'attachments')
 
     # Example of reading emails with a query (e.g., emails from a specific sender)
-    # print("\nAttempting to read emails from specific sender...")
+    # logger.info("\nAttempting to read emails from specific sender...")
     # filtered_emails = read_emails(query="hasattachments eq true") # Example query
     # if filtered_emails:
-    #      print(f"Read {len(filtered_emails)} filtered emails.")
+    #      logger.info(f"Read {len(filtered_emails)} filtered emails.")
 
     # Send email example:
-    # print("\nAttempting to send email...")
-    # send_email('recipient@example.com', 'Test Email', 'This is a test email from the utility script.')
+    # logger.info("\nAttempting to send email...")    # send_email('recipient@example.com', 'Test Email', 'This is a test email from the utility script.')
 
     # Send email with attachment example:
     # print("\nAttempting to send email with attachment...")
