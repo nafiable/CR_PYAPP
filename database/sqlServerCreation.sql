@@ -93,4 +93,54 @@ CREATE TABLE Indice (
  nom VARCHAR(255) UNIQUE NOT NULL
 );
 
+CREATE TABLE CompositionPortefeuilleGestionnaire (
+ id INT PRIMARY KEY IDENTITY(1,1),
+ date DATE,
+ id_fonds_portefeuille INT,
+ id_gestionnaire INT,
+ id_Titre INT,
+ id_devise INT,
+ id_pays INT,
+ quantite DECIMAL(18, 2),
+ prix DECIMAL(18, 2),
+ valeur_marchande DECIMAL(18, 2),
+ accrued DECIMAL(18, 2),
+ dividende DECIMAL(18, 2),
+ FOREIGN KEY (id_fonds_portefeuille) REFERENCES Fonds(id), -- Assuming Fonds is used for portfolios
+ FOREIGN KEY (id_gestionnaire) REFERENCES Gestionnaires(id),
+ FOREIGN KEY (id_Titre) REFERENCES Titre(id),
+ FOREIGN KEY (id_devise) REFERENCES Devise(id),
+ FOREIGN KEY (id_pays) REFERENCES Pays(id)
+);
+
 -- Les tables de composition seront ajoutées ensuite.
+
+CREATE TABLE CompositionFondsGestionnaire (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    date DATE,
+    id_fonds INT,
+    id_gestionnaire INT,
+    id_Titre INT,
+    id_devise INT,
+    id_pays INT,
+    quantite DECIMAL(18, 2),
+    prix DECIMAL(18, 2),
+    valeur_marchande DECIMAL(18, 2),
+    accrued DECIMAL(18, 2),
+    dividende DECIMAL(18, 2),
+    FOREIGN KEY (id_fonds) REFERENCES Fonds(id),
+    FOREIGN KEY (id_gestionnaire) REFERENCES Gestionnaires(id),
+    FOREIGN KEY (id_Titre) REFERENCES Titre(id),
+    FOREIGN KEY (id_devise) REFERENCES Devise(id),
+    FOREIGN KEY (id_pays) REFERENCES Pays(id)
+);
+
+CREATE TABLE CompositionIndice (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    date DATE,
+    id_indice INT,
+    id_Titre INT,
+    poids DECIMAL(18, 2),
+    FOREIGN KEY (id_indice) REFERENCES Indice(id),
+    FOREIGN KEY (id_Titre) REFERENCES Titre(id)
+);
