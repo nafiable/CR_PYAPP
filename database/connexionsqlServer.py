@@ -1,70 +1,72 @@
-import logging
-import sqlalchemy
-import pyodbc  # ou un autre driver comme pymssql
-import urllib
+"""
+Module de connexion à la base de données SQL Server.
+"""
 
-from constantes.const1 import Constantes, load_config
+import logging
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.engine import Engine
 
 logger = logging.getLogger(__name__)
 
 class SQLServerConnection:
-    """
-    Classe pour gérer la connexion à une base de données SQL Server.
-    """
-
-    def __init__(self):
+    """Classe pour gérer la connexion à SQL Server."""
+    
+    def __init__(self, database_url: str = "mssql+pyodbc://user:password@server/database?driver=ODBC+Driver+17+for+SQL+Server"):
         """
-        Initialise la classe avec les paramètres de connexion.
-
+        Initialise la connexion SQL Server.
+        
+        Args:
+            database_url (str): URL de connexion SQL Server
         """
-        # Charger les constantes si ce n'est pas déjà fait
-        load_config()
- # Utiliser les constantes chargées
-        self.server = Constantes.BD_SERVER
-        self.database = Constantes.BD_NAME
-        self.user = Constantes.BD_USER
-        self.password = Constantes.BD_PASSWORD
-
-        # Vérifier que les constantes nécessaires sont chargées
-        if not all([self.server, self.database, self.user, self.password]):
-            logger.error("Les paramètres de connexion SQL Server ne sont pas correctement configurés dans config.env")
-
-        # Encoder les paramètres de connexion pour l'URL SQLAlchemy
-        params = urllib.parse.quote_plus(f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={self.server};DATABASE={self.database};UID={self.user};PWD={self.password}')
-
-        self.connection = None
-        self.engine = None
-
-    def open_connection(self):
+        self.database_url = database_url
+        self.engine = self._create_engine()
+        self.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
+    
+    def _create_engine(self) -> Engine:
         """
-        Ouvre la connexion à la base de données SQL Server.
-        """
- try:
-            # Créer l'engine de connexion SQLAlchemy
-            self.engine = sqlalchemy.create_engine(f'mssql+pyodbc:///?odbc_connect={params}')
- except Exception as e: # Gérer les exceptions lors de la connexion
-            logger.error(f"Erreur lors de l'ouverture de la connexion SQL Server : {e}", exc_info=True)
-
-    def close_connection(self):
-        """
-        Ferme la connexion à la base de données.
-        """
-        if self.connection:
-            self.connection.close()
-            self.connection = None
-            self.engine = None
-
-    def get_engine(self):
-        """
-        Retourne l'engine de connexion SQLAlchemy.
-
+        Crée le moteur SQLAlchemy.
+        
         Returns:
-            sqlalchemy.engine.base.Engine: L'engine de connexion SQLAlchemy.
+            Engine: Moteur SQLAlchemy
         """
-        # Retourner l'engine existant ou en créer un si nécessaire
-        if not self.engine:
-            self.open_connection()
- if not self.engine:
- # Gérer le cas où open_connection a échoué
- return None
-        return self.engine
+        try:
+            engine = create_engine(
+                self.database_url,
+                echo=False  # Set to True for debugging
+            )
+            logger.info(f"Moteur SQL Server créé: {self.database_url}")
+            return engine
+        except Exception as e:
+            logger.error(f"Erreur lors de la création du moteur SQL Server: {str(e)}")
+            raise
+    
+    def get_session(self):
+        """
+        Retourne une nouvelle session de base de données.
+        
+        Returns:
+            Session: Session SQLAlchemy
+        """
+        try:
+            session = self.SessionLocal()
+            logger.debug("Nouvelle session SQL Server créée")
+            return session
+        except Exception as e:
+            logger.error(f"Erreur lors de la création de la session SQL Server: {str(e)}")
+            raise
+    
+    def get_connection(self):
+        """
+        Retourne une connexion à la base de données.
+        
+        Returns:
+            Connection: Connexion SQLAlchemy
+        """
+        try:
+            conn = self.engine.connect()
+            logger.debug("Nouvelle connexion SQL Server créée")
+            return conn
+        except Exception as e:
+            logger.error(f"Erreur lors de la création de la connexion SQL Server: {str(e)}")
+            raise
