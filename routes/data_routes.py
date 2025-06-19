@@ -1,218 +1,109 @@
 """
-Routes pour la gestion des données.
+Routes universelles pour la gestion des données via dispatcher.
+
+Exemples d'appel pour /dispatcher ou /dispatcher-mapped :
+
+1. Lister les tables d'une base SQLite :
+POST /api/dispatcher
+{
+  "function": "list_tables",
+  "data": { "db_path": "ma_base.db" }
+}
+
+2. Récupérer les données d'une table :
+POST /api/dispatcher
+{
+  "function": "get_table_data",
+  "data": { "db_path": "ma_base.db", "table": "gestionnaire" }
+}
+
+3. Importer un CSV dans une table :
+POST /api/dispatcher
+{
+  "function": "import_csv",
+  "data": { "csv_path": "chemin/monfichier.csv", "table": "ma_table", "db_path": "ma_base.db", "if_exists": "append" }
+}
+
+4. Exporter une table en CSV :
+POST /api/dispatcher
+{
+  "function": "export_table_to_csv_sqlite",
+  "data": { "table": "ma_table", "db_path": "ma_base.db", "output_path": "export/ma_table.csv" }
+}
+
+5. Synchroniser une table SQLite vers SQL Server :
+POST /api/dispatcher
+{
+  "function": "sync_table_sqlite_to_sqlserver",
+  "data": { "table": "ma_table", "sqlite_db_path": "ma_base.db", "sqlserver_conn_str": "..." }
+}
+
+Remplacez "dispatcher" par "dispatcher-mapped" pour utiliser le mapping.
 """
 
 import logging
-from typing import List, Dict, Any
-from fastapi import APIRouter, HTTPException, UploadFile, File
-from fastapi.responses import FileResponse, JSONResponse
-from pathlib import Path
-import pandas as pd
-from sqlalchemy import inspect
-
-from database.connexionsqlServer import SQLServerConnection
+from fastapi import APIRouter, HTTPException, Request
+from dispatcher import dispatch_request, dispatch_request_mapped
+from utils.data_routes_utils import get_tables_sqlite, get_table_data_sqlite, import_csv_to_sqlite, export_table_to_csv_sqlite, sync_table_sqlite_to_sqlserver
 from database.connexionsqlLiter import SQLiteConnection
-from utils.csv_manager import CSVManager
-from utils.excel_manager import ExcelManager
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/api")
-csv_manager = CSVManager()
-excel_manager = ExcelManager()
 
-@router.get("/tables", response_model=List[str])
-async def get_tables():
+@router.post("/dispatcher")
+async def universal_dispatcher(request: Request):
     """
-    Récupère la liste des tables disponibles.
-    
-    Returns:
-        List[str]: Liste des noms de tables
+    Route universelle pour dispatcher les appels vers la logique métier (sans mapping).
+    Voir exemples d'appel dans la docstring du fichier.
     """
     try:
-        sqlite_conn = SQLiteConnection()
-        with sqlite_conn.get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-            tables = [row[0] for row in cursor.fetchall()]
-        return tables
+        payload = await request.json()
+        function_name = payload.get("function")
+        data = payload.get("data", {})
+        if not function_name:
+            raise HTTPException(status_code=400, detail="Champ 'function' requis dans le payload.")
+        response = await dispatch_request(function_name, data)
+        return {"function": function_name, "result": response.get("data", None) or None}
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"Erreur lors de la récupération des tables: {str(e)}")
+        logger.error(f"Erreur dans le dispatcher universel: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/data/{table}", response_model=Dict[str, Any])
-async def get_table_data(table: str):
+@router.post("/dispatcher-mapped")
+async def universal_dispatcher_mapped(request: Request):
     """
-    Récupère les données d'une table.
-    
-    Args:
-        table (str): Nom de la table
-        
-    Returns:
-        Dict[str, Any]: Données de la table
+    Route universelle pour dispatcher les appels via mapping (alias, renommage, etc).
+    Voir exemples d'appel dans la docstring du fichier.
     """
     try:
-        sqlite_conn = SQLiteConnection()
-        with sqlite_conn.get_connection() as conn:
-            df = pd.read_sql(f"SELECT * FROM {table}", conn)
-        
-        return {
-            "columns": df.columns.tolist(),
-            "data": df.to_dict('records')
-        }
+        payload = await request.json()
+        function_name = payload.get("function")
+        data = payload.get("data", {})
+        if not function_name:
+            raise HTTPException(status_code=400, detail="Champ 'function' requis dans le payload.")
+        response = await dispatch_request_mapped(function_name, data)
+        return {"function": function_name, "result": response.get("data", None) or None}
+    except HTTPException:
+        raise
     except Exception as e:
-        logger.error(f"Erreur lors de la récupération des données: {str(e)}")
+        logger.error(f"Erreur dans le dispatcher-mapped: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/import/csv/{table}")
-async def import_csv(table: str, file: UploadFile = File(...)):
-    """
-    Importe un fichier CSV dans une table.
-    
-    Args:
-        table (str): Nom de la table
-        file (UploadFile): Fichier CSV
-    """
-    try:
-        # Sauvegarde temporaire du fichier
-        temp_path = Path("temp") / file.filename
-        temp_path.parent.mkdir(exist_ok=True)
-        
-        with temp_path.open("wb") as f:
-            content = await file.read()
-            f.write(content)
-        
-        # Lecture et import des données
-        df = csv_manager.read_csv(temp_path)
-        sqlite_conn = SQLiteConnection()
-        csv_manager.to_sqlite(df, table, sqlite_conn.database_path, if_exists='append')
-        
-        # Nettoyage
-        temp_path.unlink()
-        
-        return {"message": "Import réussi"}
-    except Exception as e:
-        logger.error(f"Erreur lors de l'import CSV: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+db_path = "ma_base.db"
+tables = get_tables_sqlite(db_path)
+print("Tables présentes :", tables)
 
-@router.post("/import/excel/{table}")
-async def import_excel(table: str, file: UploadFile = File(...)):
-    """
-    Importe un fichier Excel dans une table.
-    
-    Args:
-        table (str): Nom de la table
-        file (UploadFile): Fichier Excel
-    """
-    try:
-        # Sauvegarde temporaire du fichier
-        temp_path = Path("temp") / file.filename
-        temp_path.parent.mkdir(exist_ok=True)
-        
-        with temp_path.open("wb") as f:
-            content = await file.read()
-            f.write(content)
-        
-        # Lecture et import des données
-        excel_manager.open_workbook(temp_path)
-        df = excel_manager.read_sheet()
-        sqlite_conn = SQLiteConnection()
-        excel_manager.to_sqlite(df, table, sqlite_conn.database_path, if_exists='append')
-        
-        # Nettoyage
-        temp_path.unlink()
-        
-        return {"message": "Import réussi"}
-    except Exception as e:
-        logger.error(f"Erreur lors de l'import Excel: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+df = get_table_data_sqlite("ma_base.db", "gestionnaire")
+print(df.head())
 
-@router.get("/export/csv/{table}")
-async def export_csv(table: str):
-    """
-    Exporte une table en CSV.
-    
-    Args:
-        table (str): Nom de la table
-    """
-    try:
-        # Création du répertoire d'export
-        export_path = Path("exports")
-        export_path.mkdir(exist_ok=True)
-        
-        # Export des données
-        sqlite_conn = SQLiteConnection()
-        with sqlite_conn.get_connection() as conn:
-            df = pd.read_sql(f"SELECT * FROM {table}", conn)
-        
-        output_path = export_path / f"{table}.csv"
-        csv_manager.write_csv(df, output_path)
-        
-        return FileResponse(
-            output_path,
-            media_type="text/csv",
-            filename=f"{table}.csv"
-        )
-    except Exception as e:
-        logger.error(f"Erreur lors de l'export CSV: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+import_csv_to_sqlite("chemin/monfichier.csv", "ma_table", "ma_base.db", if_exists="append")
 
-@router.get("/export/excel/{table}")
-async def export_excel(table: str):
-    """
-    Exporte une table en Excel.
-    
-    Args:
-        table (str): Nom de la table
-    """
-    try:
-        # Création du répertoire d'export
-        export_path = Path("exports")
-        export_path.mkdir(exist_ok=True)
-        
-        # Export des données
-        sqlite_conn = SQLiteConnection()
-        with sqlite_conn.get_connection() as conn:
-            df = pd.read_sql(f"SELECT * FROM {table}", conn)
-        
-        output_path = export_path / f"{table}.xlsx"
-        excel_manager.create_workbook()
-        excel_manager.write_dataframe(df, "Sheet1")
-        excel_manager.save(output_path)
-        
-        return FileResponse(
-            output_path,
-            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            filename=f"{table}.xlsx"
-        )
-    except Exception as e:
-        logger.error(f"Erreur lors de l'export Excel: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+export_table_to_csv_sqlite("ma_table", "ma_base.db", "export/ma_table.csv")
 
-@router.post("/sync/sqlserver/{table}")
-async def sync_to_sqlserver(table: str):
-    """
-    Synchronise une table SQLite vers SQL Server.
-    
-    Args:
-        table (str): Nom de la table
-    """
-    try:
-        # Lecture des données SQLite
-        sqlite_conn = SQLiteConnection()
-        with sqlite_conn.get_connection() as conn:
-            df = pd.read_sql(f"SELECT * FROM {table}", conn)
-        
-        # Synchronisation vers SQL Server
-        sqlserver_conn = SQLServerConnection()
-        csv_manager.to_sql_server(
-            df,
-            table,
-            sqlserver_conn.connection_string,
-            if_exists='replace'
-        )
-        
-        return {"message": "Synchronisation réussie"}
-    except Exception as e:
-        logger.error(f"Erreur lors de la synchronisation: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e)) 
+sqlite_db = "ma_base.db"
+sqlserver_conn_str = "mssql+pyodbc://user:password@serveur/bdd?driver=ODBC+Driver+17+for+SQL+Server"
+sync_table_sqlite_to_sqlserver("ma_table", sqlite_db, sqlserver_conn_str)
+
+SQLiteConnection().init_database() 

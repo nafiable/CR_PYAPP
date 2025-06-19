@@ -10,16 +10,16 @@ import os
 from fastapi.testclient import TestClient
 
 from main import app
-from utils.csv_manager import CSVManager
-from utils.excel_manager import ExcelManager
+from utils.csv import CSVUtils
+from utils.excel import ExcelUtils
 from database.connexionsqlLiter import SQLiteConnection
 
 # Client de test
 client = TestClient(app)
 
 # Gestionnaires
-csv_manager = CSVManager()
-excel_manager = ExcelManager()
+csv_manager = CSVUtils
+excel_manager = ExcelUtils
 
 # Données de test
 TEST_DATA = {
@@ -86,10 +86,10 @@ def test_csv_operations(setup_test_db):
     # Création d'un CSV de test
     test_data = pd.DataFrame(TEST_DATA["gestionnaire"])
     csv_path = Path("test.csv")
-    csv_manager.write_csv(test_data, csv_path)
+    csv_manager.write_dataframe_to_csv(test_data, csv_path)
     
     # Test de lecture
-    df = csv_manager.read_csv(csv_path)
+    df = csv_manager.load_csv_to_dataframe(csv_path)
     assert len(df) == 1
     assert df.iloc[0]["code"] == "GEST001"
     

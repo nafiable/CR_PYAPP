@@ -79,53 +79,48 @@ class FunctionRegistry:
         )
         return {"message": "Importation SFTP terminée avec succès"}
 
-async def dispatch_request(function_name: str, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+# Mapping explicite entre noms d'API et fonctions réelles
+FUNCTION_NAME_MAPPING = {
+    # "nom_recu": "nom_interne"
+    "insert_test_data": "insert_test_data",
+    "calculate_fund_market_value": "calculate_fund_market_value",
+    "import_sftp_data": "import_sftp_data",
+    # Ajoutez ici d'autres alias ou mappings personnalisés
+    # "ajouter_gestionnaire": "insert_test_data",
+}
+
+async def dispatch_request_mapped(function_name: str, payload: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
-    Distribue les requêtes entrantes vers les fonctions appropriées.
-
-    Args:
-        function_name (str): Le nom de la fonction logique à exécuter.
-        payload (dict, optional): La charge utile au format JSON pour la fonction.
-
-    Returns:
-        dict: La réponse au format JSON.
-
-    Raises:
-        HTTPException: En cas d'erreur lors de l'exécution.
+    Version alternative du dispatcher utilisant un mapping explicite entre noms d'API et fonctions réelles.
     """
-    logger.info(f"Traitement de la requête pour la fonction: {function_name}")
+    logger.info(f"Traitement de la requête (mapping) pour la fonction: {function_name}")
     logger.debug(f"Payload reçu: {json.dumps(payload or {}, indent=2)}")
 
-    # Vérifier si la fonction existe
-    if not hasattr(FunctionRegistry, function_name):
+    # Chercher le nom réel de la fonction
+    real_function = FUNCTION_NAME_MAPPING.get(function_name)
+    if not real_function or not hasattr(FunctionRegistry, real_function):
         raise HTTPException(
             status_code=404,
-            detail=f"Fonction non trouvée: {function_name}"
+            detail=f"Fonction non trouvée (mapping): {function_name}"
         )
 
     try:
         async with get_db_connection() as (connection, db_operations):
-            # Récupérer la fonction du registre
-            handler = getattr(FunctionRegistry, function_name)
-            # Exécuter la fonction avec le payload et la connexion
+            handler = getattr(FunctionRegistry, real_function)
             result = await handler(payload or {}, connection, db_operations)
-            
             return {
                 "status": "success",
                 "data": result
             }
-
     except ValueError as e:
         logger.warning(f"Erreur de validation: {str(e)}")
         raise HTTPException(status_code=400, detail=str(e))
-    
     except DispatcherError as e:
         logger.error(f"Erreur du dispatcher: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
-    
     except Exception as e:
         logger.error(f"Erreur inattendue: {str(e)}", exc_info=True)
         raise HTTPException(
             status_code=500,
-            detail="Une erreur interne s'est produite"
+            detail="Une erreur interne s'est produite (mapping)"
         )

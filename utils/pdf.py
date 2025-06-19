@@ -445,6 +445,34 @@ class RapportPDF(PDFWriter):
             self.elements.insert(0, self.ajouter_filigrane(filigrane))
         self.doc.build(self.elements)
 
+class PDFUtils:
+    """
+    Classe utilitaire statique pour les opérations PDF (lecture, extraction, fusion, export DataFrame, etc.).
+    """
+    # --- Lecture et extraction ---
+    extraire_texte = staticmethod(PDFReader.extraire_texte)
+    extraire_texte_par_page = staticmethod(PDFReader.extraire_texte_par_page)
+    extraire_metadata = staticmethod(PDFReader.extraire_metadata)
+    fusionner_pdfs = staticmethod(PDFReader.fusionner_pdfs)
+    extraire_images = staticmethod(PDFReader.extraire_images)
+    extraire_tableaux = staticmethod(PDFReader.extraire_tableaux)
+    compresser_pdf = staticmethod(PDFReader.compresser_pdf)
+
+    @staticmethod
+    def exporter_dataframe(df, chemin_sortie, titre=None, description=None, largeurs_colonnes=None):
+        """
+        Exporte un DataFrame en PDF simple.
+        """
+        writer = PDFWriter(chemin_sortie)
+        writer.exporter_dataframe(df, titre=titre, description=description, chemin_sortie=chemin_sortie, largeurs_colonnes=largeurs_colonnes)
+
+    @staticmethod
+    def creer_rapport(titre_rapport, chemin_sortie, orientation='portrait'):
+        """
+        Crée un objet RapportPDF prêt à l'emploi.
+        """
+        return RapportPDF(titre_rapport, chemin_sortie, orientation)
+
 def exemple_utilisation():
     """Exemple d'utilisation des fonctionnalités PDF."""
     # Lecture d'un PDF

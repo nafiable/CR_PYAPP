@@ -13,8 +13,8 @@ from crud.entities import (
     fonds_crud, composition_fonds_crud, composition_portefeuille_crud,
     composition_indice_crud
 )
-from utils.csv_operations import CSVOperations
-from utils.excel_operations import ExcelOperations
+from utils.csv import CSVUtils
+from utils.excel import ExcelUtils
 from ui.dataframe_viewer import DataFrameViewer
 
 logger = logging.getLogger(__name__)
@@ -59,23 +59,21 @@ async def test_operations():
         # 3. Test des opérations CSV/Excel
         logger.info("\nTest des opérations CSV/Excel...")
         
-        csv_ops = CSVOperations()
-        excel_ops = ExcelOperations()
-        
+        # Utilisation des méthodes statiques
         # Export des données en CSV
         query = "SELECT * FROM titre"
-        csv_ops.sql_to_csv(query, "examples/output/titres.csv", is_sqlite=True)
+        CSVUtils.sql_to_csv(query, "examples/output/titres.csv", db)
         logger.info("Données des titres exportées en CSV")
         
         # Conversion CSV vers Excel
-        csv_ops.csv_to_excel("examples/output/titres.csv", "examples/output/titres.xlsx")
+        CSVUtils.csv_to_excel("examples/output/titres.csv", "examples/output/titres.xlsx")
         logger.info("CSV converti en Excel")
         
         # 4. Test du DataFrameViewer
         logger.info("\nTest du DataFrameViewer...")
         
         viewer = DataFrameViewer()
-        df = excel_ops.read_excel("examples/output/titres.xlsx")
+        df = ExcelUtils.load_excel_to_dataframe("examples/output/titres.xlsx")
         viewer.set_dataframe(df, "Titres")
         summary = viewer.get_summary()
         logger.info(f"Résumé du DataFrame: {len(df)} lignes, {len(df.columns)} colonnes")

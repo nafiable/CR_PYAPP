@@ -1,0 +1,435 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36" version="27.1.5">
+  <diagram name="Page-1" id="4UnigXa3jdpaHzPcY24G">
+    <mxGraphModel dx="1426" dy="785" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4aDz28I-DxQdhbOPWTqO-1" value="&#xa;  &#xa;    &#xa;      &#xa;        &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;&#xa;        &#xa;          &#xa;            &#xa;            &#xa;            &#xa;              &#xa;              &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          &#xa;            &#xa;          &#xa;        &#xa;        &#xa;          " style="text;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry width="30" height="6210" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-1" value="&lt;b&gt;Gestionnaire&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;nom&lt;br&gt;code&lt;br&gt;tel&lt;br&gt;contactPrincipal&lt;br&gt;email" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="100" y="50" width="160" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-2" value="&lt;b&gt;Region&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;code&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="410" y="960" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-3" value="&lt;b&gt;Pays&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;code&lt;br&gt;nom&lt;br&gt;idRegion (FK)&lt;br&gt;continent&lt;br&gt;idDevise (FK)" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="620" y="920" width="160" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-4" value="&lt;b&gt;Devise&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;code&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="880" y="920" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-5" value="&lt;b&gt;Secteur&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;codeGics&lt;br&gt;codeBics&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="80" y="320" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-6" value="&lt;b&gt;TypeActif&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;type" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="80" y="730" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-7" value="&lt;b&gt;SousTypeActif&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;idTypeActif (FK)&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="200" y="870" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-8" value="&lt;b&gt;Classif&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="80" y="500" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-9" value="&lt;b&gt;SousClassif&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;idClassif (FK)&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="80" y="600" width="160" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-10" value="&lt;b&gt;Titre&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;nom&lt;br&gt;cusip&lt;br&gt;isin&lt;br&gt;ticker&lt;br&gt;emetteur&lt;br&gt;idTypeTitre1 (FK)&lt;br&gt;idSousTypeTitre1 (FK)&lt;br&gt;idTypeTitre2 (FK)&lt;br&gt;idSecteur (FK)&lt;br&gt;idClassification1 (FK)&lt;br&gt;idSousClassification1 (FK)&lt;br&gt;classification2&lt;br&gt;idNotation (FK)&lt;br&gt;idPays (FK)" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="640" y="560" width="220" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-11" value="&lt;b&gt;Indice&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;nom" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="50" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-12" value="&lt;b&gt;Fonds&lt;/b&gt;&lt;hr&gt;id (PK)&lt;br&gt;code&lt;br&gt;nom&lt;br&gt;typeFonds (simple/portefeuille)" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="530" y="50" width="180" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-13" value="&lt;b&gt;Gestionnaire_Fonds&lt;/b&gt;&lt;hr&gt;idGestionnaire (PK, FK)&lt;br&gt;idFonds (PK, FK)" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="310" y="130" width="180" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-14" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-1" target="JOn8NHraKDoiAnN0dRts-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="200" as="sourcePoint" />
+            <mxPoint x="300" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-15" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-14">
+          <mxGeometry x="-0.8" y="2" relative="1" as="geometry">
+            <mxPoint x="14" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-16" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-14">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="-11" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-17" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-12" target="JOn8NHraKDoiAnN0dRts-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="550" as="sourcePoint" />
+            <mxPoint x="480" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-18" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-17">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-19" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-17">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-20" value="&lt;b&gt;CompositionFonds&lt;/b&gt;&lt;hr&gt;date (PK)&lt;br&gt;idFonds (PK, FK)&lt;br&gt;idTitre (PK, FK)&lt;br&gt;idDevise (FK)&lt;br&gt;idPays (FK)&lt;br&gt;quantite&lt;br&gt;prix&lt;br&gt;valeurMarchande&lt;br&gt;accrued&lt;br&gt;dividende" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="680" y="260" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-21" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-12" target="JOn8NHraKDoiAnN0dRts-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="650" as="sourcePoint" />
+            <mxPoint x="210" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-22" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-21">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-23" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-21">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-24" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-10" target="JOn8NHraKDoiAnN0dRts-20">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="780" as="sourcePoint" />
+            <mxPoint x="210" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-25" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-24">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-26" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-24">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-27" value="&lt;b&gt;CompositionPortefeuille&lt;/b&gt;&lt;hr&gt;idPortefeuille (PK, FK)&lt;br&gt;idFonds (PK, FK)&lt;br&gt;date (PK)" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="960" y="260" width="220" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-28" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-12" target="JOn8NHraKDoiAnN0dRts-27">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="650" as="sourcePoint" />
+            <mxPoint x="960" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-29" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-28">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-30" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-28">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-31" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-12" target="JOn8NHraKDoiAnN0dRts-27">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="650" as="sourcePoint" />
+            <mxPoint x="960" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-32" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-31">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-33" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-31">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-34" value="&lt;b&gt;Fonds_Indice&lt;/b&gt;&lt;hr&gt;idFonds (PK, FK)&lt;br&gt;idIndice (PK, FK)" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="790" y="85" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-35" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-12" target="JOn8NHraKDoiAnN0dRts-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="690" y="550" as="sourcePoint" />
+            <mxPoint x="690" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-36" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-35">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-37" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-35">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-38" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-11" target="JOn8NHraKDoiAnN0dRts-34">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="460" y="620" as="sourcePoint" />
+            <mxPoint x="600" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-39" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-38">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-40" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-38">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-41" value="&lt;b&gt;CompositionIndice&lt;/b&gt;&lt;hr&gt;date (PK)&lt;br&gt;idIndice (PK, FK)&lt;br&gt;idTitre (PK, FK)&lt;br&gt;quantite&lt;br&gt;prix&lt;br&gt;valeurMarchande&lt;br&gt;dividende" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="260" width="180" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-42" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-11" target="JOn8NHraKDoiAnN0dRts-41">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="460" y="620" as="sourcePoint" />
+            <mxPoint x="490" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-43" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-42">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-44" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-42">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-45" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-10" target="JOn8NHraKDoiAnN0dRts-41">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="780" as="sourcePoint" />
+            <mxPoint x="490" y="700" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-46" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-45">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-47" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-45">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-48" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-5" target="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="180" y="350" as="sourcePoint" />
+            <mxPoint x="410" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-49" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-48">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-50" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-48">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-51" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="180" as="sourcePoint" />
+            <mxPoint x="750" y="830" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-52" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-51">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-53" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-51">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-54" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-2" target="JOn8NHraKDoiAnN0dRts-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-486" y="685" as="sourcePoint" />
+            <mxPoint x="-406" y="685" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-55" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-54">
+          <mxGeometry x="-0.8033" y="2" relative="1" as="geometry">
+            <mxPoint x="14" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-56" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-54">
+          <mxGeometry x="0.6728" y="2" relative="1" as="geometry">
+            <mxPoint x="-11" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-57" value="" style="endArrow=none;html=1;rounded=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-4" target="JOn8NHraKDoiAnN0dRts-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-246" y="685" as="sourcePoint" />
+            <mxPoint x="-176" y="685" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-58" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-57">
+          <mxGeometry x="0.0467" y="-2" relative="1" as="geometry">
+            <mxPoint x="10" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-59" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-57">
+          <mxGeometry x="-0.7067" y="-2" relative="1" as="geometry">
+            <mxPoint x="-10" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-60" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-6" target="JOn8NHraKDoiAnN0dRts-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="285" as="sourcePoint" />
+            <mxPoint x="550" y="285" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-61" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-60">
+          <mxGeometry x="-0.8033" y="2" relative="1" as="geometry">
+            <mxPoint x="14" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-62" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-60">
+          <mxGeometry x="0.6728" y="2" relative="1" as="geometry">
+            <mxPoint x="-11" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-63" value="" style="endArrow=none;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=none;startFill=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-8" target="JOn8NHraKDoiAnN0dRts-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="470" y="435" as="sourcePoint" />
+            <mxPoint x="550" y="435" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-64" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-63">
+          <mxGeometry x="-0.8033" y="2" relative="1" as="geometry">
+            <mxPoint x="14" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-65" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-63">
+          <mxGeometry x="0.6728" y="2" relative="1" as="geometry">
+            <mxPoint x="-11" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-66" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-6" target="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="320" as="sourcePoint" />
+            <mxPoint x="250" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-67" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-66">
+          <mxGeometry x="-0.6667" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-68" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-66">
+          <mxGeometry x="0.6778" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-69" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-7" target="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="340" as="sourcePoint" />
+            <mxPoint x="250" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-70" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-69">
+          <mxGeometry x="-0.6667" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-71" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-69">
+          <mxGeometry x="0.6778" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-72" value="" style="endArrow=none;html=1;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-8" target="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410" y="470" as="sourcePoint" />
+            <mxPoint x="250" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-73" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-72">
+          <mxGeometry x="-0.6667" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-74" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-72">
+          <mxGeometry x="0.6778" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-75" value="" style="endArrow=none;html=1;rounded=0;entryX=0.009;entryY=0.641;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-9" target="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="630" y="490" as="sourcePoint" />
+            <mxPoint x="250" y="550" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-76" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-75">
+          <mxGeometry x="-0.6667" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-77" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-75">
+          <mxGeometry x="0.6778" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-80" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" target="JOn8NHraKDoiAnN0dRts-86" parent="1" source="JOn8NHraKDoiAnN0dRts-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="367" y="50" as="sourcePoint" />
+            <mxPoint x="-100" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-81" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-80">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-82" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-80">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-83" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" target="JOn8NHraKDoiAnN0dRts-86" parent="1" source="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="300" y="378" as="sourcePoint" />
+            <mxPoint x="-100" y="750" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-84" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-83">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-85" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-83">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-86" value="&lt;b&gt;CompositionFondsGestionnaire&lt;/b&gt;&lt;hr&gt;date (PK)&lt;br&gt;idFonds (PK, FK)&lt;div&gt;idGestionnaire(PK, FK)&lt;br&gt;idTitre (PK, FK)&lt;br&gt;idDevise (FK)&lt;br&gt;idPays (FK)&lt;br&gt;quantite&lt;br&gt;prix&lt;br&gt;valeurMarchande&lt;br&gt;accrued&lt;br&gt;dividende&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="420" y="260" width="220" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-91" value="" style="endArrow=none;html=1;rounded=0;startArrow=none;startFill=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="JOn8NHraKDoiAnN0dRts-4" target="JOn8NHraKDoiAnN0dRts-10">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="790.03" y="930" as="sourcePoint" />
+            <mxPoint x="819.03" y="840" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-92" value="1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-91">
+          <mxGeometry x="-0.66" y="-2" relative="1" as="geometry">
+            <mxPoint x="-3" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="JOn8NHraKDoiAnN0dRts-93" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="JOn8NHraKDoiAnN0dRts-91">
+          <mxGeometry x="0.67" y="2" relative="1" as="geometry">
+            <mxPoint x="3" y="2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
