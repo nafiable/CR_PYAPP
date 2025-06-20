@@ -13,6 +13,8 @@ from crud.entities import (
     fonds_crud, composition_fonds_crud, composition_portefeuille_crud,
     composition_indice_crud
 )
+from sqlalchemy import text
+from sqlalchemy.sql import text
 
 logger = logging.getLogger(__name__)
 
@@ -256,6 +258,17 @@ async def populate_database():
             "valeur_marchande": 150.0,
             "dividende": 0.82
         })
+        
+        # 14. Création des liens gestionnaire-fonds
+        # Lien Gestionnaire 1 -> Fonds 1
+        db.execute(text("INSERT INTO gestionnaire_fonds (id_gestionnaire, id_fonds) VALUES (:id_gest, :id_fonds)"),
+                   {"id_gest": gestionnaires[0].id, "id_fonds": fonds[0].id})
+        
+        # Lien Gestionnaire 2 -> Fonds 2
+        db.execute(text("INSERT INTO gestionnaire_fonds (id_gestionnaire, id_fonds) VALUES (:id_gest, :id_fonds)"),
+                   {"id_gest": gestionnaires[1].id, "id_fonds": fonds[1].id})
+        
+        db.commit() # S'assurer que les changements sont sauvegardés
         
         logger.info("Base de données peuplée avec succès")
         

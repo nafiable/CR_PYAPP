@@ -114,7 +114,9 @@ class SQLiteConnection:
                 cursor = conn.cursor()
                 cursor.execute("SELECT * FROM table")
         """
-        conn = sqlite3.connect(self.database_url)
+        # Extrait le nom du fichier de l'URL
+        db_name = self.database_url.split("///")[-1]
+        conn = sqlite3.connect(db_name)
         try:
             yield conn
             conn.commit()
@@ -151,10 +153,10 @@ class SQLiteConnection:
         les requêtes de création des tables.
         """
         try:
-            with open("database/sqliteCreation.sql", "r") as f:
+            with open("database/sqliteCreation.sql", "r", encoding="utf-8") as f:
                 sql_script = f.read()
             
-            with self.get_connection() as conn:
+            with self.get_connection_context() as conn:
                 conn.executescript(sql_script)
             
             logger.info("Base de données SQLite initialisée avec succès")

@@ -154,11 +154,25 @@ class FondsTreeViewApp:
                 fonds = cursor.fetchall()
                 for fonds_id, fonds_code, fonds_nom, fonds_type in fonds:
                     icon = "💰" if fonds_type == "simple" else "📈"
-                    self.tree.insert(gest_item, "end",
+                    fonds_item = self.tree.insert(gest_item, "end",
                         text=f"{icon} {fonds_nom} ({fonds_code})",
                         values=(fonds_id, "Fonds", f"Type: {fonds_type}"),
                         tags=("fonds",)
                     )
+                    # Ajout des titres sous chaque fonds
+                    cursor.execute("""
+                        SELECT t.id, t.nom, t.code
+                        FROM composition_fonds cf
+                        JOIN titre t ON cf.id_titre = t.id
+                        WHERE cf.id_fonds = ?
+                    """, (fonds_id,))
+                    titres = cursor.fetchall()
+                    for titre_id, titre_nom, titre_code in titres:
+                        self.tree.insert(fonds_item, "end",
+                            text=f"📄 {titre_nom} ({titre_code})",
+                            values=(titre_id, "Titre", ""),
+                            tags=("titre",)
+                        )
             conn.close()
             self.status_bar.config(text=f"Données chargées: {len(gestionnaires)} gestionnaires")
         except Exception as e:
